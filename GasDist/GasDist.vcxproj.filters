@@ -14,4 +14,37 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="d1.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="d2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sqlite3.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Input_new1.xls">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="Input1.csv">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="Input2.csv">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="my_cosy_database.dblite">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="Алгоритм распределения_вер 6 (20180703).docx">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="Копия Новый принцип ПЗ и БЭ.xlsx">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
 </Project>
