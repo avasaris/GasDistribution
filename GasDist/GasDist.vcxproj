@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="d1.cpp" />
     <ClCompile Include="d2.cpp" />
+    <ClCompile Include="sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite3.h" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <None Include="Input1.csv" />
     <None Include="Input2.csv" />
+    <None Include="Input_new1.csv" />
     <None Include="Input_new1.xls" />
     <None Include="my_cosy_database.dblite" />
     <None Include="Алгоритм распределения_вер 6 (20180703).docx" />

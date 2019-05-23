@@ -21,6 +21,9 @@
     <ClCompile Include="d2.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite3.h">
@@ -44,6 +47,9 @@
       <Filter>Файлы ресурсов</Filter>
     </None>
     <None Include="Копия Новый принцип ПЗ и БЭ.xlsx">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="Input_new1.csv">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>

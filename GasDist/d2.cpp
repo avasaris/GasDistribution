@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 #include "sqlite3.h"
+#include <cstdio>
+#include <windows.h>
+
+#pragma execution_character_set( "utf-8" )
 
 using namespace std;
 
@@ -40,13 +44,15 @@ static int callback(void* data, int argc, char** argv, char** azColName);
 
 int main() {
 
+	SetConsoleOutputCP(CP_UTF8);
+
 	sqlite3* db;
 	char* zErrMsg = 0;
 	int rc;
 	string data("Callback function called");
 
 	/* Open database */
-	rc = sqlite3_open("test.db", &db);
+	rc = sqlite3_open("Energopromservice.sqlite", &db);
 
 	if (rc) {
 		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
@@ -57,7 +63,7 @@ int main() {
 	}
 
 	/* Create SQL statement */
-	string sql ("SELECT * from COMPANY");
+	string sql ("SELECT * from Input_new1_UTF8");
 
 	/* Execute SQL statement */
 	rc = sqlite3_exec(db, sql.c_str(), callback, (void*)data.c_str(), &zErrMsg);
@@ -67,12 +73,9 @@ int main() {
 		sqlite3_free(zErrMsg);
 	}
 	else {
-		fprintf(stdout, "Table created successfully\n");
+		//fprintf(stdout, "Table created successfully\n");
 	}
 	sqlite3_close(db);
-
-	int a;
-	std::cin >> a;
 
 	return 0;
 }
