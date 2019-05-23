@@ -8,6 +8,10 @@
 
 using namespace std;
 
+const vector<string> tableStructure{ "Client", 
+"Contract", "ContractGroup", "Square", "SquareNumber", "OverLimitPriority", "UnderLimitPriority", "SquareGroup", "DeliveryName", "OffsetPlan", "GoodDistribution", "DataType", 
+"Day01", "Day02", "Day03", "Day04", "Day05", "Day06", "Day07", "Day08", "Day09", "Day10", "Day11", "Day12", "Day13", "Day14", "Day15", "Day16", "Day17", "Day18", "Day19", "Day20", "Day21", "Day22", "Day23", "Day24", "Day25", "Day26", "Day27", "Day28", "Day29", "Day30", "Day31" };
+
 class Square {
 	Square(string, string, vector<double>&, vector<double>&, int);
 	double GetFullFact();
@@ -34,13 +38,14 @@ private:
 	vector<Square> squares;
 };
 
-class Castomer {
+class Client {
 private:
 	string name;
 	vector<Contract> contracts;
 };
 
-static int callback(void* data, int argc, char** argv, char** azColName);
+static int PrintBase(void* data, int argc, char** argv, char** azColName);
+static int InitClients(void* data, int argc, char** argv, char** azColName);
 
 int main() {
 
@@ -63,32 +68,44 @@ int main() {
 	}
 
 	/* Create SQL statement */
-	string sql ("SELECT * from Input_new1_UTF8");
+	string sql ("SELECT DISTINCT 'Client' FROM Energopromservice");
 
 	/* Execute SQL statement */
-	rc = sqlite3_exec(db, sql.c_str(), callback, (void*)data.c_str(), &zErrMsg);
+	rc = sqlite3_exec(db, sql.c_str(), PrintBase, (void*)data.c_str(), &zErrMsg);
+	//rc = sqlite3_exec(db, sql.c_str(), InitClients, (void*)data.c_str(), &zErrMsg);
 
 	if (rc != SQLITE_OK) {
 		fprintf(stderr, "SQL error: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
 	else {
-		//fprintf(stdout, "Table created successfully\n");
+		/* Run the delivering algorithms */
 	}
 	sqlite3_close(db);
 
 	return 0;
 }
 
-static int callback(void* data, int argc, char** argv, char** azColName) {
-	int i;
-	fprintf(stderr, "%s: ", (const char*)data);
+static int PrintBase(void* data, int argc, char** argv, char** azColName) {
+	char* dt = (char*)data;
+	*dt = 'c';
+	
+	fprintf(stderr, "%s: ", dt);
 
-	for (i = 0; i < argc; i++) {
+	for (int i = 0; i < argc; i++) {
 		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
 	}
 
 	printf("\n");
+	return 0;
+}
+
+static int InitClients(void* data, int argc, char** argv, char** azColName) {
+
+	for (int i = 0; i < argc; i++) {
+
+	}
+
 	return 0;
 }
 

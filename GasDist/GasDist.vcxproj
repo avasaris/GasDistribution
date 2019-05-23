@@ -133,8 +133,8 @@
   <ItemGroup>
     <None Include="Input1.csv" />
     <None Include="Input2.csv" />
-    <None Include="Input_new1.csv" />
-    <None Include="Input_new1.xls" />
+    <None Include="Energopromservice.xls" />
+    <None Include="Energopromservice.csv" />
     <None Include="my_cosy_database.dblite" />
     <None Include="Алгоритм распределения_вер 6 (20180703).docx" />
     <None Include="Копия Новый принцип ПЗ и БЭ.xlsx" />

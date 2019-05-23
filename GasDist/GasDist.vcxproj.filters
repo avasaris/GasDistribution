@@ -31,9 +31,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Input_new1.xls">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
     <None Include="Input1.csv">
       <Filter>Файлы ресурсов</Filter>
     </None>
@@ -49,7 +46,10 @@
     <None Include="Копия Новый принцип ПЗ и БЭ.xlsx">
       <Filter>Файлы ресурсов</Filter>
     </None>
-    <None Include="Input_new1.csv">
+    <None Include="Energopromservice.csv">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="Energopromservice.xls">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>
