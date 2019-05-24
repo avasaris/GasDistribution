@@ -5,20 +5,20 @@ const char* DB_NAME = "Energopromservice.sqlite";
 
 using namespace std;
 
-static int ReturnDataIntoString(void*, int, char**, char**);
+static int ReturnDataIntoVector(void*, int, char**, char**);
 
 class Db {
 public:
 	Db(const string&);
 	~Db();
 
-	string GetClients();
+	vector<string> GetClients();
 
 private:
 	sqlite3* db;
 	int rc;
 
-	string SelectToString(const string& query);
+	vector<string> SelectToVectorOfStrings(const string& query);
 };
 
 Db::Db(const string&) {
@@ -33,29 +33,32 @@ Db::~Db() {
 	sqlite3_close(db);
 }
 
-string Db::GetClients() {
-	string ret_string = SelectToString("SELECT DISTINCT Client FROM RawData LIMIT 1");
-	return ret_string;
+vector<string> Db::GetClients() {
+	vector<string> ret_vector = SelectToVectorOfStrings("SELECT DISTINCT Client FROM RawData LIMIT 1");
+
+	return ret_vector;
 }
 
-string Db::SelectToString(const string& query){
-	string ret_string("");
+vector<string> Db::SelectToVectorOfStrings(const string& query){
+	vector<string> ret_vector;
 	char* zErrMsg = 0;
 
-	rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoString, (void*)& ret_string, &zErrMsg);
+	rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoVector, (void*)& ret_vector, &zErrMsg);
 
 	if (rc != SQLITE_OK) {
 		fprintf(stderr, "SQL error: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}
 
-	return ret_string;
+	return ret_vector;
 }
 
-static int ReturnDataIntoString(void* data, int argc, char** argv, char** azColName) {
-	string* ret_data = (string*)data;
+static int ReturnDataIntoVector(void* data, int argc, char** argv, char** azColName) {
+	vector<string>* ret_data = (vector<string>*)data;
 
-	*ret_data = argv[0];
+	for (int i = 0; i < argc; i++) {
+		(*ret_data).push_back(argv[i] ? argv[i] : "NULL");
+	}
 
 	return 0;
 }

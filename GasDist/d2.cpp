@@ -52,9 +52,9 @@ int main() {
 
 	Db data_base{ DB_NAME };
 
-	string client_name = data_base.GetClients();
+	vector<string> client_name = data_base.GetClients();
 
-	cout << client_name;
+	cout << client_name.at(0);
 	
 	//Client client1(client_name);
 
