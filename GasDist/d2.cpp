@@ -6,6 +6,7 @@
 #include "DataBaseLayer.h"
 
 #pragma execution_character_set("utf-8")
+const char* DB_NAME = "Energopromservice.sqlite";
 
 using namespace std;
 
@@ -33,8 +34,8 @@ class Contract {
 private:
 	string name;
 	string contracts_group;
-	int underload_priority;
-	int overload_priority;
+	int underlimit_priority;
+	int overlimit_priority;
 	double offset_plan;
 	vector<Square> squares;
 };
@@ -52,11 +53,12 @@ int main() {
 
 	Db data_base{ DB_NAME };
 
-	vector<string> client_name = data_base.GetClients();
+	vector<string> clients_names = data_base.GetClients();
 
-	cout << client_name.at(0);
+	for (auto cname : clients_names) {
+		Client client(cname);
+	}
 	
-	//Client client1(client_name);
 
 	return 0;
 }
@@ -71,7 +73,7 @@ int main() {
 Client::Client(const string& new_name) {
 	this->name = new_name;
 	Db data_base{DB_NAME};
-	//contracts = data_base.GetContracts(new_name);
+	contracts = data_base.GetContracts(new_name);
 }
 
 Square::Square(string new_address, string new_number, vector<double>& new_plan, vector<double>& new_fact, int new_days) {
