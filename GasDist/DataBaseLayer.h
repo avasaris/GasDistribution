@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
+#include "boost/format.hpp"
 
 using namespace std;
 
 const string QUERY_ALL_CLIENTS ("SELECT DISTINCT Client FROM RawData");
-const string QUERY_ALL_CONTRACTS ("SELECT DISTINCT Contract FROM RawData WHERE Client LIKE '%s'");
+const string QUERY_ALL_CONTRACTS ("SELECT DISTINCT Contract, ContractGroup, OverLimitPriority, UnderLimitPriority, OffsetPlan FROM RawData WHERE Client LIKE '%s'");
 class Contract;
 
 static int ReturnDataIntoVector(void*, int, char**, char**);
@@ -15,14 +16,13 @@ public:
 	~Db();
 
 	vector<string> GetClients();
-	vector<Contract> GetContracts(const string& client_name);
+	vector<string> GetContracts(const string& client_name);
 
 private:
 	sqlite3* db;
 	int rc;
 
 	vector<string> SelectToVectorOfStrings(const string& query);
-	vector<Contract> SelectToVectorOfContracts(const string& query);
 };
 
 Db::Db(const string& db_name) {
@@ -37,16 +37,18 @@ Db::~Db() {
 	sqlite3_close(db);
 }
 
-vector<Contract> Db::GetContracts(const string& client_name) {
-	vector<Contract> ret_vec = SelectToVectorOfContracts(QUERY_ALL_CONTRACTS);
+vector<string> Db::GetContracts(const string& client_name) {
+	string query;
+	query = boost::str(boost::format(QUERY_ALL_CONTRACTS) % client_name);
+	vector<string> query_result = SelectToVectorOfStrings(query);
 
-	return ret_vec;
+	return query_result;
 }
 
 vector<string> Db::GetClients() {
-	vector<string> ret_vector = SelectToVectorOfStrings(QUERY_ALL_CLIENTS);
+	vector<string> query_result = SelectToVectorOfStrings(QUERY_ALL_CLIENTS);
 
-	return ret_vector;
+	return query_result;
 }
 
 vector<string> Db::SelectToVectorOfStrings(const string& query) {
@@ -63,33 +65,8 @@ vector<string> Db::SelectToVectorOfStrings(const string& query) {
 	return ret_vector;
 }
 
-
-vector<Contract> Db::SelectToVectorOfContracts(const string& query){
-	vector<Contract> ret_vector;
-	char* zErrMsg = 0;
-
-	rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoVectorC, (void*)& ret_vector, &zErrMsg);
-
-	if (rc != SQLITE_OK) {
-		fprintf(stderr, "SQL error: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
-	}
-
-	return ret_vector;
-}
-
 static int ReturnDataIntoVector(void* data, int argc, char** argv, char** azColName) {
 	vector<string>* ret_data = (vector<string>*)data;
-
-	for (int i = 0; i < argc; i++) {
-		(*ret_data).push_back(argv[i] ? argv[i] : "NULL");
-	}
-
-	return 0;
-}
-
-static int ReturnDataIntoVectorC(void* data, int argc, char** argv, char** azColName) {
-	vector<Contract>* ret_data = (vector<Contract>*)data;
 
 	for (int i = 0; i < argc; i++) {
 		(*ret_data).push_back(argv[i] ? argv[i] : "NULL");
