@@ -18,13 +18,14 @@ const vector<string> tableStructure { "Client",
 double StringToDouble(const string&);
 
 class Square {
+public:
 	Square(string, string, vector<double>&, vector<double>&, int);
 	double GetFullFact();
 	double GetFullPlan();
 	double GetFactForDay(int);
 	double GetPlanForDay(int);
 private:
-	string address;
+	string name;
 	string number;
 	vector<double> plan;
 	vector<double> fact;
@@ -35,14 +36,7 @@ private:
 
 class Contract {
 public:
-	Contract(const string& name, const string& c_g, const int o_p, const int u_p, const double offset) 
-		: name(name), 
-		contracts_group(c_g), 
-		overlimit_priority(o_p), 
-		underlimit_priority(u_p), 
-		offset_plan(offset),
-		squares{} 
-	{ cout << endl << "Name=" << name << " CG=" << contracts_group << " O-p=" << overlimit_priority << " U-p=" << underlimit_priority << " Offset=" << offset_plan;  };
+	Contract(const string&, const string&, const int, const int, const double);
 private:
 	string name;
 	string contracts_group;
@@ -62,7 +56,7 @@ private:
 
 int main() {
 	SetConsoleOutputCP(CP_UTF8);
-	vector<string> clients_names;
+	vector<string> clients_names{};
 
 	{
 		Db data_base{ DB_NAME };
@@ -77,33 +71,42 @@ int main() {
 	return 0;
 }
 
+/// ================ CLIENTS ================
 
+Client::Client(const string& name)
+	: name{ name }, contracts{}
+{
+	vector<string> query_result{};
 
-	
-
-
-
-
-Client::Client(const string& name) : name(name), contracts{} {
-
-	Db data_base{DB_NAME};
-
-	vector<string> q_res = data_base.GetContracts(name);
-
-	for (auto i = q_res.begin(); i != q_res.end(); i+=5) {
-		Contract tmp_contract(i[0],i[1],stoi(i[2]), stoi(i[3]), StringToDouble(i[4]));
-		contracts.push_back(tmp_contract);
+	{
+		Db data_base{ DB_NAME };
+		query_result = data_base.GetContracts(name);
 	}
 
-
+	for (auto q = query_result.cbegin(); q != query_result.cend(); q+=5) {
+		Contract tmp_contract(q[0], q[1], stoi(q[2]), stoi(q[3]), StringToDouble(q[4]));
+		contracts.push_back(tmp_contract);
+	}
 }
 
-Square::Square(string new_address, string new_number, vector<double>& new_plan, vector<double>& new_fact, int new_days) {
-	this->address = new_address;
-	this->number = new_number;
-	this->days_in_month = new_days;
-	this->plan = new_plan;
-	this->fact = new_fact;
+/// ================ CONTRACTS ================
+
+Contract::Contract(const string& name, const string& c_g, const int o_p, const int u_p, const double offset)
+	: name{ name }, contracts_group{ c_g },
+	overlimit_priority{ o_p }, underlimit_priority{ u_p }, offset_plan{ offset },
+	squares{}
+{
+	cout << "Name=" << name << " CG=" << contracts_group << " O-p=" << overlimit_priority << " U-p=" << underlimit_priority << " Offset=" << offset_plan << endl;
+};
+
+/// ================ SQUARES ================
+
+Square::Square(string name, string number, vector<double>& new_plan, vector<double>& new_fact, int days_in_month)
+	: name{ name }, number{ number }, days_in_month{ days_in_month },
+	plan{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }, 
+	fact{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }
+{
+	cout << "Address=" << name << " Number=" << number << endl;
 }
 
 double Square::GetFactForDay(int day_of_interest) {
@@ -125,6 +128,8 @@ double Square::GetFullPlan() {
 	for (int i = 1; i <= days_in_month; ++i) ret_plan += GetPlanForDay(i);
 	return ret_plan;
 }
+
+/// ================ UTILITIES ================
 
 double StringToDouble(const string& str) {
 	std::locale lcl;
