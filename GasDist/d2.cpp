@@ -8,18 +8,15 @@
 
 #pragma execution_character_set("utf-8")
 const char* DB_NAME = "Energopromservice.sqlite";
+const int DAYS_IN_MONTH = 31;
 
 using namespace std;
-
-const vector<string> tableStructure { "Client", 
-"Contract", "ContractGroup", "Square", "SquareNumber", "OverLimitPriority", "UnderLimitPriority", "SquareGroup", "DeliveryName", "OffsetPlan", "GoodDistribution", "DataType", 
-"Day01", "Day02", "Day03", "Day04", "Day05", "Day06", "Day07", "Day08", "Day09", "Day10", "Day11", "Day12", "Day13", "Day14", "Day15", "Day16", "Day17", "Day18", "Day19", "Day20", "Day21", "Day22", "Day23", "Day24", "Day25", "Day26", "Day27", "Day28", "Day29", "Day30", "Day31" };
 
 double StringToDouble(const string&);
 
 class Square {
 public:
-	Square(string, string, vector<double>&, vector<double>&, int);
+	Square(const string&, const string&, const string&, const string&, const int, const vector<double>&, const vector<double>&);
 	double GetFullFact();
 	double GetFullPlan();
 	double GetFactForDay(int);
@@ -96,17 +93,47 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 	overlimit_priority{ o_p }, underlimit_priority{ u_p }, offset_plan{ offset },
 	squares{}
 {
-	cout << "Name=" << name << " CG=" << contracts_group << " O-p=" << overlimit_priority << " U-p=" << underlimit_priority << " Offset=" << offset_plan << endl;
+	/*
+	cout << "Contract Name=" << name << " CG=" << contracts_group << " O-p=" << overlimit_priority << " U-p=" << underlimit_priority << " Offset=" << offset_plan << endl;
+	*/
+	vector<string> query_result{};
+
+	{
+		Db data_base{ DB_NAME };
+		query_result = data_base.GetSquares(name);
+	}
+
+	for (auto q = query_result.cbegin(); q != query_result.cend(); q += 4, q += 31, q += 31) {
+		vector<double> plan{};
+		for (int i = 4; i <= 34; i++) plan.push_back(StringToDouble(q[i]));
+
+		vector<double> fact{};
+		for (int i = 35; i <= 65; i++) fact.push_back(StringToDouble(q[i]));
+
+		Square tmp_square(q[0], q[1], q[2], q[3], DAYS_IN_MONTH, plan, fact);
+		squares.push_back(tmp_square);
+	}
 };
 
 /// ================ SQUARES ================
 
-Square::Square(string name, string number, vector<double>& new_plan, vector<double>& new_fact, int days_in_month)
-	: name{ name }, number{ number }, days_in_month{ days_in_month },
-	plan{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }, 
-	fact{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }
+Square::Square(const string& name, const string& number, const string& s_g, const string& d_t, const int days_in_month, const vector<double>& plan, const vector<double>& fact)
+	: name{ name }, number{ number }, squares_group{ s_g }, delivery_type{ d_t }, days_in_month{ days_in_month },
+	plan{ plan }, fact{ fact }
 {
-	cout << "Address=" << name << " Number=" << number << endl;
+	/*
+	cout << "Square Name=" << name << " Number=" << number << endl;
+	cout << "Plan: ";
+	for (auto p : plan) {
+		cout << p << ", ";
+	}
+	cout << endl;
+	cout << "Fact: ";
+	for (auto p : fact) {
+		cout << p << ", ";
+	}
+	cout << endl;
+	*/
 }
 
 double Square::GetFactForDay(int day_of_interest) {
