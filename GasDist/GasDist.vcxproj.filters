@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d2.cpp">
+    <ClCompile Include="sqlite3.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="sqlite3.c">
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

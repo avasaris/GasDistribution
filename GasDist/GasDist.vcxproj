@@ -124,7 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="d2.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
