@@ -32,7 +32,6 @@ const string QUERY_ALL_SQUARES(
 	LEFT OUTER JOIN rawdata AS rawfact ON \
 	(raw.Client=rawfact.Client AND raw.Contract=rawfact.Contract AND raw.SquareNumber=rawfact.SquareNumber AND rawfact.DataType='fact') \
 	WHERE raw.DataType LIKE 'plan' AND raw.Contract LIKE '%s'");
-class Contract;
 
 class Db {
 public:

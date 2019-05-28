@@ -8,7 +8,7 @@
 
 #pragma execution_character_set("utf-8")
 const char* DB_NAME = "Energopromservice.sqlite";
-const int DAYS_IN_MONTH = 31;
+const int DAYS_IN_MONTH = 30;
 
 using namespace std;
 
