@@ -1,6 +1,6 @@
-#pragma once
 #include <string>
 #include "boost/format.hpp"
+#include "sqlite3.h"
 
 using namespace std;
 
