@@ -39,6 +39,11 @@ public:
 	Contract(const string&, const string&, const int, const int, const double);
 	int MyOverlimitPri();
 	int MyUnderlimitPri();
+	
+	double GetFullFact();
+	double GetFullPlan();
+	double GetFactForDay(int);
+	double GetPlanForDay(int);
 private:
 	string name;
 	string contracts_group;
