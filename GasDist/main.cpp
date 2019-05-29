@@ -1,5 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
+#include <map>
+#include <set>
+#include <string>
 #include <algorithm>
 #include <windows.h>
 
@@ -34,6 +37,8 @@ private:
 class Contract {
 public:
 	Contract(const string&, const string&, const int, const int, const double);
+	int MyOverlimitPri();
+	int MyUnderlimitPri();
 private:
 	string name;
 	string contracts_group;
@@ -49,7 +54,13 @@ public:
 private:
 	string name;
 	vector<Contract> contracts;
+
+	vector<int> contracts_in_overlimit_priority;
+	vector<int> contracts_in_underlimit_priority;
+	void ResortContracts();
 };
+
+/// ================================ MAIN ================================
 
 int main() {
 	SetConsoleOutputCP(CP_UTF8);
@@ -68,7 +79,7 @@ int main() {
 	return 0;
 }
 
-/// ================ CLIENTS ================
+/// ================================ CLIENTS ================================
 
 Client::Client(const string& name)
 	: name{ name }, contracts{}
@@ -84,9 +95,32 @@ Client::Client(const string& name)
 		Contract tmp_contract(q[0], q[1], stoi(q[2]), stoi(q[3]), StringToDouble(q[4]));
 		contracts.push_back(tmp_contract);
 	}
+
+	ResortContracts();
 }
 
-/// ================ CONTRACTS ================
+void Client::ResortContracts() {
+	map<int, set<int>> tmp_olp{};
+	map<int, set<int>> tmp_ulp{};
+	int ind=0;
+	for (auto c : contracts) {
+		tmp_olp[c.MyOverlimitPri()].insert(ind);
+		tmp_ulp[c.MyUnderlimitPri()].insert(ind);
+		ind++;
+	}
+	for (auto ind_set : tmp_olp) {
+		for (auto ind : ind_set.second) {
+			contracts_in_overlimit_priority.push_back(ind);
+		}
+	}
+	for (auto ind_set : tmp_ulp) {
+		for (auto ind : ind_set.second) {
+			contracts_in_underlimit_priority.push_back(ind);
+		}
+	}
+}
+
+/// ================================ CONTRACTS ================================
 
 Contract::Contract(const string& name, const string& c_g, const int o_p, const int u_p, const double offset)
 	: name{ name }, contracts_group{ c_g },
@@ -115,7 +149,14 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 	}
 };
 
-/// ================ SQUARES ================
+int Contract::MyOverlimitPri() {
+	return this->overlimit_priority;
+}
+
+int Contract::MyUnderlimitPri() {
+	return this->underlimit_priority;
+}
+/// ================================ SQUARES ================================
 
 Square::Square(const string& name, const string& number, const string& s_g, const string& d_t, const int days_in_month, const vector<double>& plan, const vector<double>& fact)
 	: name{ name }, number{ number }, squares_group{ s_g }, delivery_type{ d_t }, days_in_month{ days_in_month },
@@ -156,7 +197,7 @@ double Square::GetFullPlan() {
 	return ret_plan;
 }
 
-/// ================ UTILITIES ================
+/// ================================ UTILITIES ================================
 
 double StringToDouble(const string& str) {
 	std::locale lcl;
