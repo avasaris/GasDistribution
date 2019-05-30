@@ -1,4 +1,5 @@
 #include "contract.h"
+#include <iostream>
 
 Contract::Contract(const string& name, const string& c_g, const int o_p, const int u_p, const double offset)
 	: name{ name }, contracts_group{ c_g },
@@ -40,9 +41,9 @@ double Contract::GetMonthlyFact() {
 	for (auto s : squares) ret_val += s.GetMonthlyFact();
 
 	// self check
-	//double tmp_val{ 0 };
-	//for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) tmp_val += this->GetDailyFact(day);
-	//assert(ret_val == tmp_val);
+	double tmp_val{ 0 };
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) tmp_val += this->GetDailyFact(day);
+	assert(ret_val - tmp_val < 0.00001);
 
 	return ret_val;
 }
@@ -52,9 +53,9 @@ double Contract::GetMonthlyPlan() {
 	for (auto s : squares) ret_val += s.GetMonthlyPlan();
 
 	// self check
-	//double tmp_val{ 0 };
-	//for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) tmp_val += this->GetDailyPlan(day);
-	//assert(ret_val == tmp_val);
+	double tmp_val{ 0 };
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) tmp_val += this->GetDailyPlan(day);
+	assert(ret_val - tmp_val < 0.00001);
 
 	return ret_val;
 }
