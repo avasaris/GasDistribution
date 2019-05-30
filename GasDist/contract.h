@@ -13,10 +13,6 @@ public:
 	int MyOverlimitPri();
 	int MyUnderlimitPri();
 
-	/*double GetFullFact();
-	double GetFullPlan();
-	double GetFactForDay(int);
-	double GetPlanForDay(int);*/
 private:
 	string name;
 	string contracts_group;
@@ -24,6 +20,15 @@ private:
 	int underlimit_priority;
 	double offset_plan;
 	vector<Square> squares;
+
+
+
+	double GetMonthlyFact();
+	double GetMonthlyPlan();
+	double GetDailyFact(int);
+	double GetDailyPlan(int);
+	double GetDailyOffsetPlan(int);
+
 };
 
 

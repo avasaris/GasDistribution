@@ -9,10 +9,10 @@ using namespace std;
 class Square {
 public:
 	Square(const string&, const string&, const string&, const string&, const int, const vector<double>&, const vector<double>&);
-	double GetFullFact();
-	double GetFullPlan();
-	double GetFactForDay(int);
-	double GetPlanForDay(int);
+	double GetMonthlyFact();
+	double GetMonthlyPlan();
+	double GetDailyFact(int);
+	double GetDailyPlan(int);
 private:
 	string name;
 	string number;

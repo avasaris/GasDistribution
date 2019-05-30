@@ -34,3 +34,46 @@ int Contract::MyOverlimitPri() {
 int Contract::MyUnderlimitPri() {
 	return this->underlimit_priority;
 }
+
+double Contract::GetMonthlyFact() {
+	double ret_val{ 0 };
+	for (auto s : squares) ret_val += s.GetMonthlyFact();
+
+	// self check
+	double tmp_val{ 0 };
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) tmp_val += this->GetDailyFact(day);
+	assert(ret_val == tmp_val);
+
+	return ret_val;
+}
+
+double Contract::GetMonthlyPlan() {
+	double ret_val{ 0 };
+	for (auto s : squares) ret_val += s.GetMonthlyPlan();
+
+	// self check
+	double tmp_val{ 0 };
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) tmp_val += this->GetDailyPlan(day);
+	assert(ret_val == tmp_val);
+
+	return ret_val;
+}
+
+double Contract::GetDailyFact(int day_of_interest) {
+	double ret_val{ 0 };
+	for (auto s : squares) ret_val += s.GetDailyFact(day_of_interest);
+	return ret_val;
+}
+
+double Contract::GetDailyPlan(int day_of_interest) {
+	double ret_val{ 0 };
+	for (auto s : squares) ret_val += s.GetDailyPlan(day_of_interest);
+	return ret_val;
+}
+
+double Contract::GetDailyOffsetPlan(int day_of_interest) {
+	double ret_val{ 0 };
+	for (auto s : squares) ret_val += s.GetDailyPlan(day_of_interest);
+	ret_val *= offset_plan;
+	return ret_val;
+}

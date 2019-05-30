@@ -19,22 +19,22 @@ Square::Square(const string& name, const string& number, const string& s_g, cons
 	*/
 }
 
-double Square::GetFactForDay(int day_of_interest) {
+double Square::GetDailyFact(int day_of_interest) {
 	return fact.at(day_of_interest);
 }
 
-double Square::GetPlanForDay(int day_of_interest) {
+double Square::GetDailyPlan(int day_of_interest) {
 	return plan.at(day_of_interest);
 }
 
-double Square::GetFullFact() {
+double Square::GetMonthlyFact() {
 	double ret_fact = 0;
-	for (int i = 1; i <= days_in_month; ++i) ret_fact += GetFactForDay(i);
+	for (int i = 1; i <= days_in_month; ++i) ret_fact += GetDailyFact(i);
 	return ret_fact;
 }
 
-double Square::GetFullPlan() {
+double Square::GetMonthlyPlan() {
 	double ret_plan = 0;
-	for (int i = 1; i <= days_in_month; ++i) ret_plan += GetPlanForDay(i);
+	for (int i = 1; i <= days_in_month; ++i) ret_plan += GetDailyPlan(i);
 	return ret_plan;
 }
