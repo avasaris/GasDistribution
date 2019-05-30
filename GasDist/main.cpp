@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <math.h>
 #include <windows.h>
 
 #include "InitValues.h"
@@ -22,11 +23,34 @@ int main() {
 		clients_names = data_base.GetClients();
 	}
 
+	std::cout.precision(10);
+	std::cout.setf(std::ios::fixed);
+
 	for (auto cname : clients_names) {
 		Client client(cname);
+
+		vector<int> phase1(Constants::DAYS_IN_MONTH + 1, 0);
+
+		for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
+			double Cli_day_plan = client.GetDailyPlan(day);
+			double Cli_day_o_plan = client.GetDailyOffsetPlan(day);
+			double Cli_day_fact = client.GetDailyFact(day);
+			if (Cli_day_fact >= Cli_day_o_plan) phase1[day] = Constants::algo_2_1;
+			else if (Cli_day_fact < Cli_day_o_plan && Cli_day_fact >= Cli_day_plan) phase1[day] = Constants::algo_2_2;
+			else if (Cli_day_fact < Cli_day_plan) phase1[day] = Constants::algo_2_3;
+			else assert(FALSE);
+			cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | " << phase1[day] << endl;
+		}
+
+
+
+		cout << "Monthly client plan=" << client.GetMonthlyPlan() << endl;
+		cout << "Monthly client fact=" << client.GetMonthlyFact() << endl;
+
+
 	}
 	
-
+	
 	return 0;
 }
 
@@ -57,4 +81,8 @@ double StringToDouble(const string& str) {
 	}
 
 	return d;
+}
+
+double Round1000(double x) {
+	return round(x * 1000) / 1000;
 }

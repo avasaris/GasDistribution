@@ -14,6 +14,13 @@ using namespace std;
 class Client {
 public:
 	Client(const string&);
+
+	double GetMonthlyFact();
+	double GetMonthlyPlan();
+	double GetDailyFact(int);
+	double GetDailyPlan(int);
+	double GetDailyOffsetPlan(int);
+
 private:
 	string name;
 	vector<Contract> contracts;
@@ -21,6 +28,12 @@ private:
 	vector<int> contracts_in_overlimit_priority;
 	vector<int> contracts_in_underlimit_priority;
 	void ResortContracts();
+
+};
+
+
+class ClientCalculations :Client {
+
 };
 
 #endif CLIENT_H
