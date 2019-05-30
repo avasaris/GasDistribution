@@ -10,14 +10,14 @@ using namespace std;
 class Contract {
 public:
 	Contract(const string&, const string&, const int, const int, const double);
-	int MyOverlimitPri();
-	int MyUnderlimitPri();
+	int MyOverlimitPri() const;
+	int MyUnderlimitPri() const;
 
-	double GetMonthlyFact();
-	double GetMonthlyPlan();
-	double GetDailyFact(int);
-	double GetDailyPlan(int);
-	double GetDailyOffsetPlan(int);
+	double GetMonthlyFact() const;
+	double GetMonthlyPlan() const;
+	double GetDailyFact(int) const;
+	double GetDailyPlan(int) const;
+	double GetDailyOffsetPlan(int) const;
 
 private:
 	string name;

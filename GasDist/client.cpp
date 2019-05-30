@@ -39,31 +39,31 @@ void Client::ResortContracts() {
 	}
 }
 
-double Client::GetDailyFact(int day_of_interest) {
+double Client::GetDailyFact(int day_of_interest) const {
 	double ret_val{ 0 };
 	for (auto c : contracts) ret_val += c.GetDailyFact(day_of_interest);
 	return ret_val;
 }
 
-double Client::GetDailyPlan(int day_of_interest) {
+double Client::GetDailyPlan(int day_of_interest) const {
 	double ret_val{ 0 };
 	for (auto c : contracts) ret_val += c.GetDailyPlan(day_of_interest);
 	return ret_val;
 }
 
-double Client::GetDailyOffsetPlan(int day_of_interest) {
+double Client::GetDailyOffsetPlan(int day_of_interest) const {
 	double ret_val{ 0 };
 	for (auto c : contracts) ret_val += c.GetDailyOffsetPlan(day_of_interest);
 	return ret_val;
 }
 
-double Client::GetMonthlyFact() {
+double Client::GetMonthlyFact() const {
 	double ret_val{ 0 };
 	for (auto c : contracts) ret_val += c.GetMonthlyFact();
 	return ret_val;
 }
 
-double Client::GetMonthlyPlan() {
+double Client::GetMonthlyPlan() const {
 	double ret_val{ 0 };
 	for (auto c : contracts) ret_val += c.GetMonthlyPlan();
 	return ret_val;

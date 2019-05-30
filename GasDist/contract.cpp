@@ -28,15 +28,15 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 	}
 };
 
-int Contract::MyOverlimitPri() {
+int Contract::MyOverlimitPri() const {
 	return this->overlimit_priority;
 }
 
-int Contract::MyUnderlimitPri() {
+int Contract::MyUnderlimitPri() const {
 	return this->underlimit_priority;
 }
 
-double Contract::GetMonthlyFact() {
+double Contract::GetMonthlyFact() const {
 	double ret_val{ 0 };
 	for (auto s : squares) ret_val += s.GetMonthlyFact();
 
@@ -48,7 +48,7 @@ double Contract::GetMonthlyFact() {
 	return ret_val;
 }
 
-double Contract::GetMonthlyPlan() {
+double Contract::GetMonthlyPlan() const {
 	double ret_val{ 0 };
 	for (auto s : squares) ret_val += s.GetMonthlyPlan();
 
@@ -60,18 +60,18 @@ double Contract::GetMonthlyPlan() {
 	return ret_val;
 }
 
-double Contract::GetDailyFact(int day_of_interest) {
+double Contract::GetDailyFact(int day_of_interest) const {
 	double ret_val{ 0 };
 	for (auto s : squares) ret_val += s.GetDailyFact(day_of_interest);
 	return ret_val;
 }
 
-double Contract::GetDailyPlan(int day_of_interest) {
+double Contract::GetDailyPlan(int day_of_interest) const {
 	double ret_val{ 0 };
 	for (auto s : squares) ret_val += s.GetDailyPlan(day_of_interest);
 	return ret_val;
 }
 
-double Contract::GetDailyOffsetPlan(int day_of_interest) {
+double Contract::GetDailyOffsetPlan(int day_of_interest) const {
 	return Round1000(this->GetDailyPlan(day_of_interest) * offset_plan);
 }

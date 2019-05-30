@@ -15,11 +15,11 @@ class Client {
 public:
 	Client(const string&);
 
-	double GetMonthlyFact();
-	double GetMonthlyPlan();
-	double GetDailyFact(int);
-	double GetDailyPlan(int);
-	double GetDailyOffsetPlan(int);
+	double GetMonthlyFact() const;
+	double GetMonthlyPlan() const;
+	double GetDailyFact(int) const;
+	double GetDailyPlan(int) const;
+	double GetDailyOffsetPlan(int) const;
 
 private:
 	string name;
