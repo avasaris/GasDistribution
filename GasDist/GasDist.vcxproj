@@ -124,12 +124,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="contract.cpp" />
+    <ClCompile Include="DataBaseLayer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sqlite3.c" />
+    <ClCompile Include="square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="client.h" />
+    <ClInclude Include="contract.h" />
     <ClInclude Include="DataBaseLayer.h" />
+    <ClInclude Include="InitValues.h" />
     <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="square.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Input1.csv" />
