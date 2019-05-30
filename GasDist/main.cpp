@@ -18,7 +18,7 @@ int main() {
 	vector<string> clients_names{};
 
 	{
-		Db data_base{ DB_NAME };
+		Db data_base{ Constants::DB_NAME };
 		clients_names = data_base.GetClients();
 	}
 

@@ -9,8 +9,10 @@
 
 using namespace std;
 
-static const int DAYS_IN_MONTH = 30;
-static const char* DB_NAME = "Energopromservice.sqlite";
+namespace Constants {
+	const int DAYS_IN_MONTH{ 30 };
+	const char* const DB_NAME{ "Energopromservice.sqlite" };
+}
 
 double StringToDouble(const string&);
 

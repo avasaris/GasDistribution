@@ -6,7 +6,7 @@ Client::Client(const string& name)
 	vector<string> query_result{};
 
 	{
-		Db data_base{ DB_NAME };
+		Db data_base{ Constants::DB_NAME };
 		query_result = data_base.GetContracts(name);
 	}
 

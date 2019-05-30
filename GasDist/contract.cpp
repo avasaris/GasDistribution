@@ -11,7 +11,7 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 	vector<string> query_result{};
 
 	{
-		Db data_base{ DB_NAME };
+		Db data_base{ Constants::DB_NAME };
 		query_result = data_base.GetSquares(name);
 	}
 
@@ -22,7 +22,7 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 		vector<double> fact{};
 		for (int i = 35; i <= 65; i++) fact.push_back(StringToDouble(q[i]));
 
-		Square tmp_square(q[0], q[1], q[2], q[3], DAYS_IN_MONTH, plan, fact);
+		Square tmp_square(q[0], q[1], q[2], q[3], Constants::DAYS_IN_MONTH, plan, fact);
 		squares.push_back(tmp_square);
 	}
 };
