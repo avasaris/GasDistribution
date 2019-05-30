@@ -63,7 +63,7 @@ double StringToDouble(const string& str) {
 	string decimal_point{ dec_p };
 
 	string tmp_str{ "0" + str };
-	int n = tmp_str.find(',');
+	size_t n = tmp_str.find(',');
 	if(n!=string::npos)
 		tmp_str.replace(n, 1, decimal_point);
 

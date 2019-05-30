@@ -32,7 +32,7 @@ private:
 };
 
 
-class ClientCalculations :Client {
+class ClientCalculations : private Client {
 
 };
 
