@@ -28,6 +28,8 @@ public:
 
 	const string& SayMyName() const { return name; };
 
+	void LinkToCaclulatePhase1() { CaclulatePhase1(); };
+
 private:
 	string name;
 	vector<Contract> contracts;
