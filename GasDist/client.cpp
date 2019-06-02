@@ -116,9 +116,19 @@ void Client::CalculatePhase1() {
 			cout << " " << contracts[contracts_in_overlimit_priority[0]].GetName() << " " << fact_phase1[contracts_in_overlimit_priority[0]][day] << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_2) {
-
+			double tempo_sum_fact = 0;
+			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_2) << " ";
+			for (int contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
+				double tempo_fact = contracts[contracts_in_overlimit_priority[contract_i]].GetDailyPlan(day);
+				fact_phase1[contracts_in_overlimit_priority[contract_i]][day] = tempo_fact;
+				tempo_sum_fact += tempo_fact;
+				cout << contracts[contracts_in_overlimit_priority[contract_i]].GetName() << " " << tempo_fact;
+			}
+			fact_phase1[contracts_in_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
+			cout << " " << contracts[contracts_in_overlimit_priority[0]].GetName() << " " << fact_phase1[contracts_in_overlimit_priority[0]][day] << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_3) {
+
 		}
 		else {
 			assert(false);
