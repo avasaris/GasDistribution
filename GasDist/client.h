@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <iostream>
 #include "InitValues.h"
 
 class Contract;
@@ -21,6 +22,8 @@ public:
 	double GetDailyPlan(int) const;
 	double GetDailyOffsetPlan(int) const;
 
+	const string& SayMyName() const { return name; };
+
 private:
 	string name;
 	vector<Contract> contracts;
@@ -29,11 +32,11 @@ private:
 	vector<int> contracts_in_underlimit_priority;
 	void ResortContracts();
 
+	vector<AlgorithmPhase1> phase1;
+	void CaclulatePhase1();
+	
 };
 
 
-class ClientCalculations : private Client {
-
-};
 
 #endif CLIENT_H

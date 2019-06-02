@@ -29,18 +29,6 @@ int main() {
 	for (auto cname : clients_names) {
 		Client client(cname);
 
-		vector<AlgorithmPhase1> phase1(Constants::DAYS_IN_MONTH + 1, AlgorithmPhase1::N_2_0);
-
-		for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
-			double Cli_day_plan = client.GetDailyPlan(day);
-			double Cli_day_o_plan = client.GetDailyOffsetPlan(day);
-			double Cli_day_fact = client.GetDailyFact(day);
-			if (Cli_day_fact >= Cli_day_o_plan) phase1[day] = AlgorithmPhase1::N_2_1;
-			else if (Cli_day_fact < Cli_day_o_plan && Cli_day_fact >= Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_2;
-			else if (Cli_day_fact < Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_3;
-			else assert(FALSE);
-			cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | 2." << static_cast<int>(phase1[day]) << endl;
-		}
 
 
 

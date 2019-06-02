@@ -2,6 +2,7 @@
 #define INITVALUES_H
 
 #include <string>
+//#include <cassert>
 #include "square.h"
 #include "contract.h"
 #include "client.h"

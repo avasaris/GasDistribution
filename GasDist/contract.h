@@ -27,6 +27,11 @@ private:
 	double offset_plan;
 	vector<Square> squares;
 
+	//-- recalc fields
+	vector<double> rf_plan;
+	vector<double> rf_fact;
+
+
 };
 
 

@@ -68,3 +68,20 @@ double Client::GetMonthlyPlan() const {
 	for (auto c : contracts) ret_val += c.GetMonthlyPlan();
 	return ret_val;
 }
+
+void Client::CaclulatePhase1() {
+
+	phase1.resize(Constants::DAYS_IN_MONTH + 1, AlgorithmPhase1::N_2_0);
+
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
+		double Cli_day_plan = GetDailyPlan(day);
+		double Cli_day_o_plan = GetDailyOffsetPlan(day);
+		double Cli_day_fact = GetDailyFact(day);
+		if (Cli_day_fact >= Cli_day_o_plan) phase1[day] = AlgorithmPhase1::N_2_1;
+		else if (Cli_day_fact < Cli_day_o_plan && Cli_day_fact >= Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_2;
+		else if (Cli_day_fact < Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_3;
+		else assert(FALSE);
+		cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | 2." << static_cast<int>(phase1[day]) << endl;
+	}
+
+}
