@@ -69,19 +69,59 @@ double Client::GetMonthlyPlan() const {
 	return ret_val;
 }
 
-void Client::CaclulatePhase1() {
+void Client::CaclulateAlgorithmForPhase1() {
 
-	phase1.resize(Constants::DAYS_IN_MONTH + 1, AlgorithmPhase1::N_2_0);
+	algorithm_phase1.resize(Constants::DAYS_IN_MONTH + 1, AlgorithmPhase1::N_2_0);
 
 	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
 		double Cli_day_plan = GetDailyPlan(day);
 		double Cli_day_o_plan = GetDailyOffsetPlan(day);
 		double Cli_day_fact = GetDailyFact(day);
-		if (Cli_day_fact >= Cli_day_o_plan) phase1[day] = AlgorithmPhase1::N_2_1;
-		else if (Cli_day_fact < Cli_day_o_plan && Cli_day_fact >= Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_2;
-		else if (Cli_day_fact < Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_3;
-		else assert(false);
-		cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | 2." << static_cast<int>(phase1[day]) << endl;
+
+		if (Cli_day_fact >= Cli_day_o_plan) {
+			algorithm_phase1[day] = AlgorithmPhase1::N_2_1;
+		}
+		else if (Cli_day_fact < Cli_day_o_plan && Cli_day_fact >= Cli_day_plan) {
+			algorithm_phase1[day] = AlgorithmPhase1::N_2_2;
+		}
+		else if (Cli_day_fact < Cli_day_plan) {
+			algorithm_phase1[day] = AlgorithmPhase1::N_2_3;
+		}
+		else {
+			assert(false);
+		}
+
+		cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | 2." << static_cast<int>(algorithm_phase1[day]) << endl;
 	}
 
+}
+
+void Client::CalculatePhase1() {
+	for (auto cs = 0; cs < contracts.size(); ++cs) {
+		vector<double> c(Constants::DAYS_IN_MONTH + 1, 0);
+		fact_phase1.push_back(c);
+	}
+
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
+		if (algorithm_phase1[day] == AlgorithmPhase1::N_2_1) {
+			double tempo_sum_fact = 0;
+			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_1) << " ";
+			for (int contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
+				double tempo_fact = contracts[contracts_in_overlimit_priority[contract_i]].GetDailyOffsetPlan(day);
+				fact_phase1[contracts_in_overlimit_priority[contract_i]][day] = tempo_fact;
+				tempo_sum_fact += tempo_fact;
+				cout << contracts[contracts_in_overlimit_priority[contract_i]].GetName() << " " << tempo_fact;
+			}
+			fact_phase1[contracts_in_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
+			cout << " " << contracts[contracts_in_overlimit_priority[0]].GetName() << " " << fact_phase1[contracts_in_overlimit_priority[0]][day] << endl;
+		}
+		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_2) {
+
+		}
+		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_3) {
+		}
+		else {
+			assert(false);
+		}
+	}
 }

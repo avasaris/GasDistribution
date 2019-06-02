@@ -31,7 +31,8 @@ int main() {
 		Client client(cname);
 
 
-		client.LinkToCaclulatePhase1();
+		client.LinkToCaclulateAlgorithmForPhase1();
+		client.LinkToCalculatePhase1();
 
 		cout << "Monthly client plan=" << client.GetMonthlyPlan() << endl;
 		cout << "Monthly client fact=" << client.GetMonthlyFact() << endl;

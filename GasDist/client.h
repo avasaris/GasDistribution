@@ -28,7 +28,8 @@ public:
 
 	const string& SayMyName() const { return name; };
 
-	void LinkToCaclulatePhase1() { CaclulatePhase1(); };
+	void LinkToCaclulateAlgorithmForPhase1() { CaclulateAlgorithmForPhase1(); };
+	void LinkToCalculatePhase1() { CalculatePhase1(); };
 
 private:
 	string name;
@@ -38,8 +39,11 @@ private:
 	vector<int> contracts_in_underlimit_priority;
 	void ResortContracts();
 
-	vector<AlgorithmPhase1> phase1;
-	void CaclulatePhase1();
+	vector<AlgorithmPhase1> algorithm_phase1;
+	void CaclulateAlgorithmForPhase1();
+
+	vector<vector<double>> fact_phase1;
+	void CalculatePhase1();
 	
 };
 

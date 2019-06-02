@@ -18,6 +18,7 @@ public:
 	double GetDailyFact(int) const;
 	double GetDailyPlan(int) const;
 	double GetDailyOffsetPlan(int) const;
+	string GetName() const { return name; };
 
 private:
 	string name;
