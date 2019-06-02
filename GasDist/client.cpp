@@ -80,7 +80,7 @@ void Client::CaclulatePhase1() {
 		if (Cli_day_fact >= Cli_day_o_plan) phase1[day] = AlgorithmPhase1::N_2_1;
 		else if (Cli_day_fact < Cli_day_o_plan && Cli_day_fact >= Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_2;
 		else if (Cli_day_fact < Cli_day_plan) phase1[day] = AlgorithmPhase1::N_2_3;
-		else assert(FALSE);
+		else assert(false);
 		cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | 2." << static_cast<int>(phase1[day]) << endl;
 	}
 

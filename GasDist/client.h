@@ -8,6 +8,10 @@
 #include <iostream>
 #include "InitValues.h"
 
+enum class AlgorithmPhase1 {
+	N_2_0, N_2_1, N_2_2, N_2_3
+};
+
 class Contract;
 
 using namespace std;

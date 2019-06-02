@@ -26,6 +26,7 @@ int main() {
 	std::cout.precision(10);
 	std::cout.setf(std::ios::fixed);
 
+
 	for (auto cname : clients_names) {
 		Client client(cname);
 
