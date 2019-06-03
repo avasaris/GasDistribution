@@ -147,6 +147,8 @@
     <None Include="Energopromservice.csv" />
     <None Include="my_cosy_database.dblite" />
     <None Include="Алгоритм распределения_вер 6 (20180703).docx" />
+    <None Include="Алгоритм распределения_вер 6.01 (20181129).docx" />
+    <None Include="Доринда.xls" />
     <None Include="Копия Новый принцип ПЗ и БЭ.xlsx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

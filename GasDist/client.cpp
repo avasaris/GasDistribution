@@ -97,7 +97,7 @@ void Client::CaclulateAlgorithmForPhase1() {
 }
 
 void Client::CalculatePhase1() {
-	for (auto cs = 0; cs < contracts.size(); ++cs) {
+	for (size_t cs = 0; cs < contracts.size(); ++cs) {
 		vector<double> c(Constants::DAYS_IN_MONTH + 1, 0);
 		fact_phase1.push_back(c);
 	}
@@ -106,7 +106,7 @@ void Client::CalculatePhase1() {
 		if (algorithm_phase1[day] == AlgorithmPhase1::N_2_1) {
 			double tempo_sum_fact = 0;
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_1) << " ";
-			for (int contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
+			for (size_t contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
 				double tempo_fact = contracts[contracts_in_overlimit_priority[contract_i]].GetDailyOffsetPlan(day);
 				fact_phase1[contracts_in_overlimit_priority[contract_i]][day] = tempo_fact;
 				tempo_sum_fact += tempo_fact;
@@ -118,7 +118,7 @@ void Client::CalculatePhase1() {
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_2) {
 			double tempo_sum_fact = 0;
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_2) << " ";
-			for (int contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
+			for (size_t contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
 				double tempo_fact = contracts[contracts_in_overlimit_priority[contract_i]].GetDailyPlan(day);
 				fact_phase1[contracts_in_overlimit_priority[contract_i]][day] = tempo_fact;
 				tempo_sum_fact += tempo_fact;
