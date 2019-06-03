@@ -29,12 +29,12 @@ void Client::ResortContracts() {
 	}
 	for (auto ind_set : tmp_olp) {
 		for (auto ind : ind_set.second) {
-			contracts_in_overlimit_priority.push_back(ind);
+			contracts_desc_overlimit_priority.push_back(ind);
 		}
 	}
 	for (auto ind_set : tmp_ulp) {
 		for (auto ind : ind_set.second) {
-			contracts_in_underlimit_priority.push_back(ind);
+			contracts_desc_underlimit_priority.push_back(ind);
 		}
 	}
 }
@@ -102,30 +102,33 @@ void Client::CalculatePhase1() {
 		fact_phase1.push_back(c);
 	}
 
+	vector<int> contracts_asc_overlimit_priority{ contracts_desc_overlimit_priority };
+	reverse(contracts_asc_overlimit_priority.begin(), contracts_asc_overlimit_priority.end());
+
 	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
 		if (algorithm_phase1[day] == AlgorithmPhase1::N_2_1) {
 			double tempo_sum_fact = 0;
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_1) << " ";
-			for (size_t contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
-				double tempo_fact = contracts[contracts_in_overlimit_priority[contract_i]].GetDailyOffsetPlan(day);
-				fact_phase1[contracts_in_overlimit_priority[contract_i]][day] = tempo_fact;
+			for (size_t contract_i = 1; contract_i < contracts_asc_overlimit_priority.size(); ++contract_i) {
+				double tempo_fact = contracts[contracts_asc_overlimit_priority[contract_i]].GetDailyOffsetPlan(day);
+				fact_phase1[contracts_asc_overlimit_priority[contract_i]][day] = tempo_fact;
 				tempo_sum_fact += tempo_fact;
-				cout << contracts[contracts_in_overlimit_priority[contract_i]].GetName() << " " << tempo_fact;
+				cout << contracts[contracts_asc_overlimit_priority[contract_i]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[contract_i]].MyOverlimitPri() << " " << tempo_fact;
 			}
-			fact_phase1[contracts_in_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
-			cout << " " << contracts[contracts_in_overlimit_priority[0]].GetName() << " " << fact_phase1[contracts_in_overlimit_priority[0]][day] << endl;
+			fact_phase1[contracts_asc_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
+			cout << " " << contracts[contracts_asc_overlimit_priority[0]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[0]].MyOverlimitPri() << " " << fact_phase1[contracts_asc_overlimit_priority[0]][day] << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_2) {
 			double tempo_sum_fact = 0;
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_2) << " ";
-			for (size_t contract_i = 1; contract_i < contracts_in_overlimit_priority.size(); ++contract_i) {
-				double tempo_fact = contracts[contracts_in_overlimit_priority[contract_i]].GetDailyPlan(day);
-				fact_phase1[contracts_in_overlimit_priority[contract_i]][day] = tempo_fact;
+			for (size_t contract_i = 1; contract_i < contracts_asc_overlimit_priority.size(); ++contract_i) {
+				double tempo_fact = contracts[contracts_asc_overlimit_priority[contract_i]].GetDailyPlan(day);
+				fact_phase1[contracts_asc_overlimit_priority[contract_i]][day] = tempo_fact;
 				tempo_sum_fact += tempo_fact;
-				cout << contracts[contracts_in_overlimit_priority[contract_i]].GetName() << " " << tempo_fact;
+				cout << contracts[contracts_asc_overlimit_priority[contract_i]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[contract_i]].MyOverlimitPri() << " " << tempo_fact;
 			}
-			fact_phase1[contracts_in_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
-			cout << " " << contracts[contracts_in_overlimit_priority[0]].GetName() << " " << fact_phase1[contracts_in_overlimit_priority[0]][day] << endl;
+			fact_phase1[contracts_asc_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
+			cout << " " << contracts[contracts_asc_overlimit_priority[0]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[0]].MyOverlimitPri() << " " << fact_phase1[contracts_asc_overlimit_priority[0]][day] << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_3) {
 
