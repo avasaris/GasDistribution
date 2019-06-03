@@ -6,6 +6,7 @@
 #include <map>
 #include <set>
 #include <iostream>
+#include <algorithm>
 #include "InitValues.h"
 
 enum class AlgorithmPhase1 {
