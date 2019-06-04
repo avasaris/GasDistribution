@@ -23,7 +23,7 @@ int main() {
 		clients_names = data_base.GetClients();
 	}
 
-	std::cout.precision(10);
+	std::cout.precision(6);
 	std::cout.setf(std::ios::fixed);
 
 
@@ -37,10 +37,15 @@ int main() {
 		cout << "Monthly client plan=" << client.GetMonthlyPlan() << endl;
 		cout << "Monthly client fact=" << client.GetMonthlyFact() << endl;
 
+		AlgorithmPhase2 if_phase2 = client.LinkToCheckIfWeNeedPhase2();
+		cout << "\n===Phase 2 algorithm 3." << static_cast<int> (if_phase2) << "===\n";
+
+
+
 
 	}
-	
-	
+
+
 	return 0;
 }
 
@@ -54,7 +59,7 @@ double StringToDouble(const string& str) {
 
 	string tmp_str{ "0" + str };
 	size_t n = tmp_str.find(',');
-	if(n!=string::npos)
+	if (n != string::npos)
 		tmp_str.replace(n, 1, decimal_point);
 
 	double d;

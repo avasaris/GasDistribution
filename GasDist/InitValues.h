@@ -16,6 +16,8 @@ namespace Constants {
 	//const int algo_2_1{ 21 };
 	//const int algo_2_2{ 22 };
 	//const int algo_2_3{ 23 };
+	const int k_min_olp{ 0 };
+	const int k_max_ulp{ 0 };
 
 
 

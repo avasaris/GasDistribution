@@ -9,14 +9,14 @@ using namespace std;
 
 /* ==== Table structure ====
 "Client","Contract", "ContractGroup", "Square", "SquareNumber", "OverLimitPriority", "UnderLimitPriority", "SquareGroup", "DeliveryName", "OffsetPlan", "GoodDistribution", "DataType",
-"Day01", "Day02", "Day03", "Day04", "Day05", "Day06", "Day07", "Day08", "Day09", "Day10", 
-"Day11", "Day12", "Day13", "Day14", "Day15", "Day16", "Day17", "Day18", "Day19", "Day20", 
+"Day01", "Day02", "Day03", "Day04", "Day05", "Day06", "Day07", "Day08", "Day09", "Day10",
+"Day11", "Day12", "Day13", "Day14", "Day15", "Day16", "Day17", "Day18", "Day19", "Day20",
 "Day21", "Day22", "Day23", "Day24", "Day25", "Day26", "Day27", "Day28", "Day29", "Day30", "Day31"
 */
 
-const string QUERY_ALL_CLIENTS ("SELECT DISTINCT Client FROM RawData");
-const string QUERY_ALL_CONTRACTS ("SELECT DISTINCT Contract, ContractGroup, OverLimitPriority, UnderLimitPriority, 0 FROM RawData WHERE Client LIKE '%s'");
-const string QUERY_OFFSET_FOR_ALL_CONTRACTS ("SELECT DISTINCT OffsetPlan FROM RawData WHERE Contract LIKE '%s' AND DataType LIKE 'plan'");
+const string QUERY_ALL_CLIENTS("SELECT DISTINCT Client FROM RawData");
+const string QUERY_ALL_CONTRACTS("SELECT DISTINCT Contract, ContractGroup, OverLimitPriority, UnderLimitPriority, 0 FROM RawData WHERE Client LIKE '%s'");
+const string QUERY_OFFSET_FOR_ALL_CONTRACTS("SELECT DISTINCT OffsetPlan FROM RawData WHERE Contract LIKE '%s' AND DataType LIKE 'plan'");
 const string QUERY_ALL_SQUARES(
 	"SELECT raw.Square, raw.SquareNumber, raw.SquareGroup, raw.DeliveryName, \
 	raw.Day01 as Plan01, raw.Day02 as Plan02, raw.Day03 as Plan03, raw.Day04 as Plan04, raw.Day05 as Plan05, \

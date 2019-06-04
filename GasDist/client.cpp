@@ -27,11 +27,14 @@ void Client::ResortContracts() {
 		tmp_ulp[c.MyUnderlimitPri()].insert(ind);
 		ind++;
 	}
+	
 	for (auto ind_set : tmp_olp) {
 		for (auto ind : ind_set.second) {
-			contracts_desc_overlimit_priority.push_back(ind);
+			contracts_asc_overlimit_priority.push_back(ind);
 		}
 	}
+	reverse(contracts_asc_overlimit_priority.begin(), contracts_asc_overlimit_priority.end());
+
 	for (auto ind_set : tmp_ulp) {
 		for (auto ind : ind_set.second) {
 			contracts_desc_underlimit_priority.push_back(ind);
@@ -88,10 +91,11 @@ void Client::CaclulateAlgorithmForPhase1() {
 			algorithm_phase1[day] = AlgorithmPhase1::N_2_3;
 		}
 		else {
+			cerr << "{Error in calculating algorithm for pahse 1}";
 			assert(false);
 		}
 
-		cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << " | 2." << static_cast<int>(algorithm_phase1[day]) << endl;
+		cout << day << " : " << Cli_day_plan << " | " << Cli_day_o_plan << " | " << Cli_day_fact << endl;
 	}
 
 }
@@ -101,9 +105,6 @@ void Client::CalculatePhase1() {
 		vector<double> c(Constants::DAYS_IN_MONTH + 1, 0);
 		fact_phase1.push_back(c);
 	}
-
-	vector<int> contracts_asc_overlimit_priority{ contracts_desc_overlimit_priority };
-	reverse(contracts_asc_overlimit_priority.begin(), contracts_asc_overlimit_priority.end());
 
 	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
 		if (algorithm_phase1[day] == AlgorithmPhase1::N_2_1) {
@@ -115,35 +116,59 @@ void Client::CalculatePhase1() {
 				tempo_sum_fact += tempo_fact;
 				cout << contracts[contracts_asc_overlimit_priority[contract_i]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[contract_i]].MyOverlimitPri() << " " << tempo_fact;
 			}
-			fact_phase1[contracts_asc_overlimit_priority[0]][day] = GetDailyFact(day) - tempo_sum_fact;
-			cout << " " << contracts[contracts_asc_overlimit_priority[0]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[0]].MyOverlimitPri() << " " << fact_phase1[contracts_asc_overlimit_priority[0]][day] << endl;
+			fact_phase1[contracts_asc_overlimit_priority[Constants::k_min_olp]][day] = GetDailyFact(day) - tempo_sum_fact;
+			cout << " " << contracts[contracts_asc_overlimit_priority[Constants::k_min_olp]].GetName() << " k_olp=" << contracts[contracts_asc_overlimit_priority[Constants::k_min_olp]].MyOverlimitPri() << " " << fact_phase1[contracts_asc_overlimit_priority[Constants::k_min_olp]][day] << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_2) {
-			fact_phase1[contracts_desc_underlimit_priority[0]][day] = min(GetDailyFact(day), contracts[contracts_desc_underlimit_priority[0]].GetDailyOffsetPlan(day));
+			fact_phase1[contracts_desc_underlimit_priority[Constants::k_max_ulp]][day] = min(GetDailyFact(day), contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].GetDailyOffsetPlan(day));
 			// technical debt - you should rewrite this part to be able to work with more than two contracts
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_2) << " ";
-			//fact_phase1[contracts_desc_underlimit_priority[0]][day] = min(GetDailyFact(day), contracts[contracts_desc_underlimit_priority[0]].GetDailyOffsetPlan(day));
-			fact_phase1[contracts_desc_underlimit_priority[1]][day] = GetDailyFact(day) - fact_phase1[contracts_desc_underlimit_priority[0]][day];
+			fact_phase1[contracts_desc_underlimit_priority[1]][day] = GetDailyFact(day) - fact_phase1[contracts_desc_underlimit_priority[Constants::k_max_ulp]][day];
 			cout << contracts[contracts_desc_underlimit_priority[1]].GetName() << " k_ulp=" << contracts[contracts_desc_underlimit_priority[1]].MyUnderlimitPri() << " " << fact_phase1[contracts_desc_underlimit_priority[1]][day];
 			cout << " ";
-			cout << contracts[contracts_desc_underlimit_priority[0]].GetName() << " k_ulp=" << contracts[contracts_desc_underlimit_priority[0]].MyUnderlimitPri() << " " << fact_phase1[contracts_desc_underlimit_priority[0]][day];
+			cout << contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].GetName() << " k_ulp=" << contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].MyUnderlimitPri() << " " << fact_phase1[contracts_desc_underlimit_priority[Constants::k_max_ulp]][day];
 			cout << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_3) {
-			fact_phase1[contracts_desc_underlimit_priority[0]][day] = min(GetDailyFact(day), contracts[contracts_desc_underlimit_priority[0]].GetDailyPlan(day));
+			fact_phase1[contracts_desc_underlimit_priority[Constants::k_max_ulp]][day] = min(GetDailyFact(day), contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].GetDailyPlan(day));
 			// technical debt - you should rewrite this part to be able to work with more than two contracts
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_3) << " ";
-			//fact_phase1[contracts_desc_underlimit_priority[0]][day] = min(GetDailyFact(day), contracts[contracts_desc_underlimit_priority[0]].GetDailyPlan(day));
-			fact_phase1[contracts_desc_underlimit_priority[1]][day] = GetDailyFact(day) - fact_phase1[contracts_desc_underlimit_priority[0]][day];
+			fact_phase1[contracts_desc_underlimit_priority[1]][day] = GetDailyFact(day) - fact_phase1[contracts_desc_underlimit_priority[Constants::k_max_ulp]][day];
 			cout << contracts[contracts_desc_underlimit_priority[1]].GetName() << " k_ulp=" << contracts[contracts_desc_underlimit_priority[1]].MyUnderlimitPri() << " " << fact_phase1[contracts_desc_underlimit_priority[1]][day];
 			cout << " ";
-			cout << contracts[contracts_desc_underlimit_priority[0]].GetName() << " k_ulp=" << contracts[contracts_desc_underlimit_priority[0]].MyUnderlimitPri() << " " << fact_phase1[contracts_desc_underlimit_priority[0]][day];
+			cout << contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].GetName() << " k_ulp=" << contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].MyUnderlimitPri() << " " << fact_phase1[contracts_desc_underlimit_priority[Constants::k_max_ulp]][day];
 			cout << endl;
 
 
 		}
 		else {
+			cerr << "{Error in calculating into phase 1}";
 			assert(false);
 		}
 	}
+}
+
+AlgorithmPhase2 Client::CheckIfWeNeedPhase2() {
+
+	bool if_algo1 = false;
+	for (size_t contract_i = 1; contract_i < contracts_asc_overlimit_priority.size(); ++contract_i) {
+		if_algo1 = if_algo1 || (contracts[contracts_asc_overlimit_priority[contract_i]].GetMonthlyFact() > contracts[contracts_asc_overlimit_priority[contract_i]].GetMonthlyPlan());
+	}
+	if (if_algo1) return AlgorithmPhase2::N_3_1;
+
+	bool if_algo2 = false;
+	for (size_t contract_i = 1; contract_i < contracts_asc_overlimit_priority.size(); ++contract_i) {
+		if_algo2 = if_algo2 || (contracts[contracts_asc_overlimit_priority[contract_i]].GetMonthlyFact() < contracts[contracts_asc_overlimit_priority[contract_i]].GetMonthlyPlan());
+	}
+	if_algo2 = if_algo2 && (contracts[contracts_asc_overlimit_priority[Constants::k_min_olp]].GetMonthlyFact() > contracts[contracts_asc_overlimit_priority[Constants::k_min_olp]].GetMonthlyPlan());
+	if (if_algo2) return AlgorithmPhase2::N_3_2;
+
+	bool if_algo3 = false;
+	for (size_t contract_i = 1; contract_i < contracts_desc_underlimit_priority.size(); ++contract_i) {
+		if_algo3 = if_algo3 || (contracts[contracts_desc_underlimit_priority[contract_i]].GetMonthlyFact() > 0);
+	}
+	if_algo3 = if_algo3 && (contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].GetMonthlyFact() < contracts[contracts_desc_underlimit_priority[Constants::k_max_ulp]].GetMonthlyPlan());
+	if (if_algo3) return AlgorithmPhase2::N_3_3;
+
+	return AlgorithmPhase2::N_3_0;
 }

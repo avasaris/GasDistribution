@@ -13,6 +13,10 @@ enum class AlgorithmPhase1 {
 	N_2_0, N_2_1, N_2_2, N_2_3
 };
 
+enum class AlgorithmPhase2 {
+	N_3_0, N_3_1, N_3_2, N_3_3
+};
+
 class Contract;
 
 using namespace std;
@@ -31,12 +35,13 @@ public:
 
 	void LinkToCaclulateAlgorithmForPhase1() { CaclulateAlgorithmForPhase1(); };
 	void LinkToCalculatePhase1() { CalculatePhase1(); };
+	AlgorithmPhase2 LinkToCheckIfWeNeedPhase2() { return CheckIfWeNeedPhase2(); };
 
 private:
 	string name;
 	vector<Contract> contracts;
 
-	vector<int> contracts_desc_overlimit_priority;
+	vector<int> contracts_asc_overlimit_priority;
 	vector<int> contracts_desc_underlimit_priority;
 	void ResortContracts();
 
@@ -45,7 +50,9 @@ private:
 
 	vector<vector<double>> fact_phase1;
 	void CalculatePhase1();
-	
+
+	AlgorithmPhase2 CheckIfWeNeedPhase2();
+
 };
 
 

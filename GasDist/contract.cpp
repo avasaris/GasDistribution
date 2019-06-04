@@ -22,7 +22,7 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 
 		vector<double> fact(Constants::DAYS_IN_MONTH + 1, 0);
 		for (int i = 35; i <= 35 + (Constants::DAYS_IN_MONTH - 1); i++) fact[i - 34] = StringToDouble(q[i]);
-		
+
 		Square tmp_square(q[0], q[1], q[2], q[3], Constants::DAYS_IN_MONTH, plan, fact);
 		squares.push_back(tmp_square);
 	}
