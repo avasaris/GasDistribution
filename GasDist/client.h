@@ -41,8 +41,8 @@ private:
 	string name;
 	vector<Contract> contracts;
 
-	vector<int> contracts_asc_overlimit_priority;
-	vector<int> contracts_desc_underlimit_priority;
+	vector<int> OLP_asc_order;
+	vector<int> ULP_desc_order;
 	void ResortContracts();
 
 	vector<AlgorithmPhase1> algorithm_phase1;

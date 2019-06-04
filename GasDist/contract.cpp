@@ -28,11 +28,11 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 	}
 };
 
-int Contract::MyOverlimitPri() const {
+int Contract::GetOLP() const {
 	return this->overlimit_priority;
 }
 
-int Contract::MyUnderlimitPri() const {
+int Contract::GetULP() const {
 	return this->underlimit_priority;
 }
 

@@ -10,8 +10,8 @@ using namespace std;
 class Contract {
 public:
 	Contract(const string&, const string&, const int, const int, const double);
-	int MyOverlimitPri() const;
-	int MyUnderlimitPri() const;
+	int GetOLP() const;
+	int GetULP() const;
 
 	double GetMonthlyFact() const;
 	double GetMonthlyPlan() const;
