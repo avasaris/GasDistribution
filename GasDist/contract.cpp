@@ -25,6 +25,12 @@ Contract::Contract(const string& name, const string& c_g, const int o_p, const i
 
 		Square tmp_square(q[0], q[1], q[2], q[3], Constants::DAYS_IN_MONTH, plan, fact);
 		squares.push_back(tmp_square);
+
+		vector<double> empty_vec(Constants::DAYS_IN_MONTH + 1, 0);
+		fact_p1 = { empty_vec };
+		fact_p2 = { empty_vec };
+
+
 	}
 };
 
@@ -74,4 +80,19 @@ double Contract::GetDailyPlan(int day_of_interest) const {
 
 double Contract::GetDailyOffsetPlan(int day_of_interest) const {
 	return Round1000(this->GetDailyPlan(day_of_interest) * offset_plan);
+}
+
+void Contract::SetDailyFactP1(int day, double value) {
+	fact_p1[day] = value;
+}
+
+double Contract::GetDailyFactP1(int day) const {
+	return fact_p1[day];
+}
+
+double Contract::GetMonthlyFactP1() const {
+	double ret_val{ 0 };
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) ret_val += this->GetDailyFactP1(day);
+
+	return ret_val;
 }

@@ -20,6 +20,10 @@ public:
 	double GetDailyOffsetPlan(int) const;
 	string GetName() const { return name; };
 
+	void SetDailyFactP1(int, double);
+	double GetDailyFactP1(int) const;
+	double GetMonthlyFactP1() const;
+
 private:
 	string name;
 	string contracts_group;
@@ -28,10 +32,11 @@ private:
 	double offset_plan;
 	vector<Square> squares;
 
-	//-- recalc fields
-	vector<double> rf_plan;
-	vector<double> rf_fact;
+	//-- fields for phase1
+	vector<double> fact_p1;
 
+	//-- fields for phase2
+	vector<double> fact_p2;
 
 };
 

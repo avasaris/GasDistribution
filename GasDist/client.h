@@ -43,12 +43,11 @@ private:
 
 	vector<int> OLP_asc_order;
 	vector<int> ULP_desc_order;
-	void ResortContracts();
+	void Reorder();
 
 	vector<AlgorithmPhase1> algorithm_phase1;
 	void CaclulateAlgorithmForPhase1();
 
-	vector<vector<double>> fact_phase1;
 	void CalculatePhase1();
 
 	AlgorithmPhase2 CheckIfWeNeedPhase2();
