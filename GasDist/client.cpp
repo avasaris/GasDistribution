@@ -108,7 +108,6 @@ void Client::CalculatePhase1() {
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_1) << " ";
 			for (size_t i = 1; i < OLP_asc_order.size(); ++i) {
 				double tempo_fact = contracts[OLP_asc_order[i]].GetDailyOffsetPlan(day);
-				//fact_phase1[OLP_asc_order[i]][day] = tempo_fact;
 				contracts[OLP_asc_order[i]].SetDailyFactP1(day, tempo_fact);
 				tempo_sum_fact += tempo_fact;
 				cout << contracts[OLP_asc_order[i]].GetName() << " k_olp=" << contracts[OLP_asc_order[i]].GetOLP() << " " << tempo_fact;
@@ -168,4 +167,8 @@ AlgorithmPhase2 Client::CheckIfWeNeedPhase2() {
 	if (if_algo3) return AlgorithmPhase2::N_3_3;
 
 	return AlgorithmPhase2::N_3_0;
+}
+
+void Client::Phase2Algo3() {
+
 }

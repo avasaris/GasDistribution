@@ -35,7 +35,9 @@ public:
 
 	void LinkToCaclulateAlgorithmForPhase1() { CaclulateAlgorithmForPhase1(); };
 	void LinkToCalculatePhase1() { CalculatePhase1(); };
+	
 	AlgorithmPhase2 LinkToCheckIfWeNeedPhase2() { return CheckIfWeNeedPhase2(); };
+	void LinkToPhase2Algo3() { return Phase2Algo3(); };
 
 private:
 	string name;
@@ -47,10 +49,10 @@ private:
 
 	vector<AlgorithmPhase1> algorithm_phase1;
 	void CaclulateAlgorithmForPhase1();
-
 	void CalculatePhase1();
 
 	AlgorithmPhase2 CheckIfWeNeedPhase2();
+	void Phase2Algo3();
 
 };
 

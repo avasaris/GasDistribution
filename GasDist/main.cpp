@@ -40,7 +40,7 @@ int main() {
 		AlgorithmPhase2 if_phase2 = client.LinkToCheckIfWeNeedPhase2();
 		cout << "\n===Phase 2 algorithm 3." << static_cast<int> (if_phase2) << "===\n";
 
-
+		if (if_phase2 == AlgorithmPhase2::N_3_3) client.LinkToPhase2Algo3();
 
 
 	}
