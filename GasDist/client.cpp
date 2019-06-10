@@ -170,5 +170,24 @@ AlgorithmPhase2 Client::CheckIfWeNeedPhase2() {
 }
 
 void Client::Phase2Algo3() {
+	// technical debt - you should rewrite this part to be able to work with more than two contracts
+	// at this moment we think threre is only one contract k_min_ulp=1
+	int k_min_ulp = 1;
+	double current_F = contracts[ULP_desc_order[k_min_ulp]].GetMonthlyFactP1();
+	double current_F_max_ulp = contracts[ULP_desc_order[Constants::k_max_ulp]].GetMonthlyFactP1();
+	double current_P_max_ulp = contracts[ULP_desc_order[Constants::k_max_ulp]].GetMonthlyPlan();
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
+		double current_f_d_c = contracts[ULP_desc_order[k_min_ulp]].GetDailyFactP1(day);
+		double current_f_d = this->GetDailyFact(day);
+		double current_p_ofs_d_max_ulp = contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyOffsetPlan(day);
+		double current_f_d_max_ulp = contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day);
+		std::initializer_list<double> ilist{ current_f_d_c, current_F, current_P_max_ulp - current_F_max_ulp, max(min(current_f_d,current_p_ofs_d_max_ulp)- current_f_d_max_ulp,0.0)};
+		double new_current_f_d_c = current_f_d_c - min(ilist); // - we should save this
 
+		current_F = current_F - (current_f_d_c - new_current_f_d_c);
+		current_F_max_ulp = current_F_max_ulp + (current_f_d_c - new_current_f_d_c);
+		current_f_d_max_ulp= current_f_d_max_ulp + (current_f_d_c - new_current_f_d_c); // - we should save this
+
+	}
+	
 }
