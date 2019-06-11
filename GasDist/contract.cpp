@@ -86,8 +86,16 @@ void Contract::SetDailyFactP1(int day, double value) {
 	fact_p1[day] = value;
 }
 
+void Contract::SetDailyFactP2(int day, double value) {
+	fact_p2[day] = value;
+}
+
 double Contract::GetDailyFactP1(int day) const {
 	return fact_p1[day];
+}
+
+double Contract::GetDailyFactP2(int day) const {
+	return fact_p2[day];
 }
 
 double Contract::GetMonthlyFactP1() const {

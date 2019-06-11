@@ -182,12 +182,21 @@ void Client::Phase2Algo3() {
 		double current_p_ofs_d_max_ulp = contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyOffsetPlan(day);
 		double current_f_d_max_ulp = contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day);
 		std::initializer_list<double> ilist{ current_f_d_c, current_F, current_P_max_ulp - current_F_max_ulp, max(min(current_f_d,current_p_ofs_d_max_ulp)- current_f_d_max_ulp,0.0)};
-		double new_current_f_d_c = current_f_d_c - min(ilist); // - we should save this
+		double new_current_f_d_c = current_f_d_c - min(ilist);
+		contracts[ULP_desc_order[k_min_ulp]].SetDailyFactP2(day, new_current_f_d_c);
+		cout << "day=" << day << " " << contracts[ULP_desc_order[k_min_ulp]].GetName() << "=" << contracts[ULP_desc_order[k_min_ulp]].GetDailyFactP2(day) << "\t";
 
 		current_F = current_F - (current_f_d_c - new_current_f_d_c);
 		current_F_max_ulp = current_F_max_ulp + (current_f_d_c - new_current_f_d_c);
-		current_f_d_max_ulp= current_f_d_max_ulp + (current_f_d_c - new_current_f_d_c); // - we should save this
-
+		current_f_d_max_ulp= current_f_d_max_ulp + (current_f_d_c - new_current_f_d_c);
+		contracts[ULP_desc_order[Constants::k_max_ulp]].SetDailyFactP2(day, current_f_d_max_ulp);
+		cout << contracts[ULP_desc_order[Constants::k_max_ulp]].GetName() << "=" << contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP2(day) << "\n";
 	}
 	
+}
+
+void Client::Phase2Algo2() {
+}
+
+void Client::Phase2Algo1() {
 }

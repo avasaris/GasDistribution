@@ -24,6 +24,9 @@ public:
 	double GetDailyFactP1(int) const;
 	double GetMonthlyFactP1() const;
 
+	void SetDailyFactP2(int, double);
+	double GetDailyFactP2(int) const;
+
 private:
 	string name;
 	string contracts_group;

@@ -37,6 +37,8 @@ public:
 	void LinkToCalculatePhase1() { CalculatePhase1(); };
 	
 	AlgorithmPhase2 LinkToCheckIfWeNeedPhase2() { return CheckIfWeNeedPhase2(); };
+	void LinkToPhase2Algo1() { return Phase2Algo1(); };
+	void LinkToPhase2Algo2() { return Phase2Algo2(); };
 	void LinkToPhase2Algo3() { return Phase2Algo3(); };
 
 private:
@@ -52,6 +54,8 @@ private:
 	void CalculatePhase1();
 
 	AlgorithmPhase2 CheckIfWeNeedPhase2();
+	void Phase2Algo1();
+	void Phase2Algo2();
 	void Phase2Algo3();
 
 };
