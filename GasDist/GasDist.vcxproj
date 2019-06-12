@@ -146,6 +146,7 @@
     <None Include="Energopromservice.xls" />
     <None Include="Energopromservice.csv" />
     <None Include="my_cosy_database.dblite" />
+    <None Include="Queryfor1C.sql" />
     <None Include="Алгоритм распределения_вер 6 (20180703).docx" />
     <None Include="Алгоритм распределения_вер 6.01 (20181129).docx" />
     <None Include="Доринда.xls" />
