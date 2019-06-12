@@ -23,6 +23,9 @@ int main() {
 		clients_names = data_base.GetClients();
 	}
 
+	for (auto client : clients_names) cout << "Client: " << client << "\n";
+	cout << endl;
+
 	std::cout.precision(6);
 	std::cout.setf(std::ios::fixed);
 

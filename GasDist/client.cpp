@@ -10,6 +10,9 @@ Client::Client(const string& name)
 		query_result = data_base.GetContracts(name);
 	}
 
+	cout << "Client: " << name << endl;
+	for (auto contract : query_result) cout << "Contract: " << contract << endl;
+
 	for (auto q = query_result.cbegin(); q != query_result.cend(); q += 5) {
 		Contract tmp_contract(q[0], q[1], stoi(q[2]), stoi(q[3]), StringToDouble(q[4]));
 		contracts.push_back(tmp_contract);
