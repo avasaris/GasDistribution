@@ -11,9 +11,12 @@ Client::Client(const string& name)
 	}
 
 	cout << "Client: " << name << endl;
-	for (auto contract : query_result) cout << "Contract: " << contract << endl;
 
 	for (auto q = query_result.cbegin(); q != query_result.cend(); q += 5) {
+		cout << "Contract: " << q[0] << endl;
+		cout << "OLP=" << q[2] << endl;
+		cout << "ULP=" << q[3] << endl;
+		cout << "Offset=" << q[4] << endl;
 		Contract tmp_contract(q[0], q[1], stoi(q[2]), stoi(q[3]), StringToDouble(q[4]));
 		contracts.push_back(tmp_contract);
 	}
@@ -113,19 +116,19 @@ void Client::CalculatePhase1() {
 				double tempo_fact = contracts[OLP_asc_order[i]].GetDailyOffsetPlan(day);
 				contracts[OLP_asc_order[i]].SetDailyFactP1(day, tempo_fact);
 				tempo_sum_fact += tempo_fact;
-				cout << contracts[OLP_asc_order[i]].GetName() << " k_olp=" << contracts[OLP_asc_order[i]].GetOLP() << " " << tempo_fact;
+				cout << contracts[OLP_asc_order[i]].GetName() << " " << tempo_fact;
 			}
 			contracts[OLP_asc_order[Constants::k_min_olp]].SetDailyFactP1(day, GetDailyFact(day) - tempo_sum_fact);
-			cout << " " << contracts[OLP_asc_order[Constants::k_min_olp]].GetName() << " k_olp=" << contracts[OLP_asc_order[Constants::k_min_olp]].GetOLP() << " " << contracts[OLP_asc_order[Constants::k_min_olp]].GetDailyFactP1(day) << endl;
+			cout << " " << contracts[OLP_asc_order[Constants::k_min_olp]].GetName() << " " << contracts[OLP_asc_order[Constants::k_min_olp]].GetDailyFactP1(day) << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_2) {
 			contracts[ULP_desc_order[Constants::k_max_ulp]].SetDailyFactP1(day, min(GetDailyFact(day), contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyOffsetPlan(day)));
 			// technical debt - you should rewrite this part to be able to work with more than two contracts
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_2) << " ";
 			contracts[ULP_desc_order[1]].SetDailyFactP1(day, GetDailyFact(day) - contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day));
-			cout << contracts[ULP_desc_order[1]].GetName() << " k_ulp=" << contracts[ULP_desc_order[1]].GetULP() << " " << contracts[ULP_desc_order[1]].GetDailyFactP1(day);
+			cout << contracts[ULP_desc_order[1]].GetName() << " " << contracts[ULP_desc_order[1]].GetDailyFactP1(day);
 			cout << " ";
-			cout << contracts[ULP_desc_order[Constants::k_max_ulp]].GetName() << " k_ulp=" << contracts[ULP_desc_order[Constants::k_max_ulp]].GetULP() << " " << contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day);
+			cout << contracts[ULP_desc_order[Constants::k_max_ulp]].GetName() << " " << contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day);
 			cout << endl;
 		}
 		else if (algorithm_phase1[day] == AlgorithmPhase1::N_2_3) {
@@ -133,12 +136,10 @@ void Client::CalculatePhase1() {
 			// technical debt - you should rewrite this part to be able to work with more than two contracts
 			cout << day << " 2." << static_cast<int>(AlgorithmPhase1::N_2_3) << " ";
 			contracts[ULP_desc_order[1]].SetDailyFactP1(day, GetDailyFact(day) - contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day));
-			cout << contracts[ULP_desc_order[1]].GetName() << " k_ulp=" << contracts[ULP_desc_order[1]].GetULP() << " " << contracts[ULP_desc_order[1]].GetDailyFactP1(day);
+			cout << contracts[ULP_desc_order[1]].GetName() << " " << contracts[ULP_desc_order[1]].GetDailyFactP1(day);
 			cout << " ";
-			cout << contracts[ULP_desc_order[Constants::k_max_ulp]].GetName() << " k_ulp=" << contracts[ULP_desc_order[Constants::k_max_ulp]].GetULP() << " " << contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day);
+			cout << contracts[ULP_desc_order[Constants::k_max_ulp]].GetName() << " " << contracts[ULP_desc_order[Constants::k_max_ulp]].GetDailyFactP1(day);
 			cout << endl;
-
-
 		}
 		else {
 			cerr << "{Error in calculating into phase 1}";
@@ -199,6 +200,7 @@ void Client::Phase2Algo3() {
 }
 
 void Client::Phase2Algo2() {
+
 }
 
 void Client::Phase2Algo1() {

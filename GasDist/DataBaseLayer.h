@@ -16,7 +16,7 @@ using namespace std;
 
 const string QUERY_ALL_CLIENTS("SELECT DISTINCT Client FROM RawData");
 const string QUERY_ALL_CONTRACTS("SELECT DISTINCT Contract, ContractGroup, OverLimitPriority, UnderLimitPriority, 0 FROM RawData WHERE Client LIKE '%s'");
-const string QUERY_OFFSET_FOR_ALL_CONTRACTS("SELECT DISTINCT OffsetPlan FROM RawData WHERE Contract LIKE '%s' AND DataType LIKE 'plan'");
+const string QUERY_OFFSET_FOR_ALL_CONTRACTS("SELECT DISTINCT OffsetPlan FROM RawData WHERE Contract LIKE '%s' AND DataType LIKE 'Plan'");
 const string QUERY_ALL_SQUARES(
 	"SELECT raw.Square, raw.SquareNumber, raw.SquareGroup, raw.DeliveryName, \
 	raw.Day01 as Plan01, raw.Day02 as Plan02, raw.Day03 as Plan03, raw.Day04 as Plan04, raw.Day05 as Plan05, \
@@ -33,8 +33,8 @@ const string QUERY_ALL_SQUARES(
 	rawfact.Day26 as Fact26, rawfact.Day27 as Fact27, rawfact.Day28 as Fact28, rawfact.Day29 as Fact29, rawfact.Day30 as Fact30, rawfact.Day31 as Fact31 \
 	FROM rawdata raw \
 	LEFT OUTER JOIN rawdata AS rawfact ON \
-	(raw.Client=rawfact.Client AND raw.Contract=rawfact.Contract AND raw.SquareNumber=rawfact.SquareNumber AND rawfact.DataType='fact') \
-	WHERE raw.DataType LIKE 'plan' AND raw.Contract LIKE '%s'");
+	(raw.Client=rawfact.Client AND raw.Contract=rawfact.Contract AND raw.SquareNumber=rawfact.SquareNumber AND rawfact.DataType LIKE 'Fact') \
+	WHERE raw.DataType LIKE 'Plan' AND raw.Contract LIKE '%s'");
 
 class Db {
 public:

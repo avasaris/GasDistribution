@@ -23,7 +23,8 @@ int main() {
 		clients_names = data_base.GetClients();
 	}
 
-	for (auto client : clients_names) cout << "Client: " << client << "\n";
+	cout << "Clients:";
+	for (auto client : clients_names) cout << " " << client << ";";
 	cout << endl;
 
 	std::cout.precision(6);

@@ -33,8 +33,15 @@ public:
 
 	const string& SayMyName() const { return name; };
 
-	void LinkToCaclulateAlgorithmForPhase1() { CaclulateAlgorithmForPhase1(); };
-	void LinkToCalculatePhase1() { CalculatePhase1(); };
+	void LinkToCaclulateAlgorithmForPhase1() { 
+		cout << " Daily plan | Daily plan offset | Daily fact" << endl;
+		CaclulateAlgorithmForPhase1(); 
+	};
+
+	void LinkToCalculatePhase1() {
+		cout << "--- Phase 1 ---" << endl;
+		CalculatePhase1();
+	};
 	
 	AlgorithmPhase2 LinkToCheckIfWeNeedPhase2() { return CheckIfWeNeedPhase2(); };
 	void LinkToPhase2Algo1() { return Phase2Algo1(); };

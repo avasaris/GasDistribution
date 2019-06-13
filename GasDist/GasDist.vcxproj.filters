@@ -82,11 +82,11 @@
     <None Include="Алгоритм распределения_вер 6.01 (20181129).docx">
       <Filter>Файлы ресурсов</Filter>
     </None>
-    <None Include="Доринда.xls">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
     <None Include="Queryfor1C.sql">
       <Filter>Misc</Filter>
+    </None>
+    <None Include="Dorinda.xls">
+      <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>
 </Project>

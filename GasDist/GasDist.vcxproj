@@ -141,6 +141,7 @@
     <ClInclude Include="square.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dorinda.xls" />
     <None Include="Input1.csv" />
     <None Include="Input2.csv" />
     <None Include="Energopromservice.xls" />
@@ -149,7 +150,6 @@
     <None Include="Queryfor1C.sql" />
     <None Include="Алгоритм распределения_вер 6 (20180703).docx" />
     <None Include="Алгоритм распределения_вер 6.01 (20181129).docx" />
-    <None Include="Доринда.xls" />
     <None Include="Копия Новый принцип ПЗ и БЭ.xlsx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
