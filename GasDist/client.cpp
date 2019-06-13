@@ -200,6 +200,24 @@ void Client::Phase2Algo3() {
 }
 
 void Client::Phase2Algo2() {
+	// technical debt - you should rewrite this part to be able to work with more than two contracts
+	// at this moment we think threre is only one contract k_max_olp=1
+	int k_max_olp = 1;
+	double current_F = contracts[OLP_asc_order[k_max_olp]].GetMonthlyFactP1();
+	double current_P = contracts[OLP_asc_order[k_max_olp]].GetMonthlyPlan();
+	double current_F_min_olp = contracts[OLP_asc_order[Constants::k_min_olp]].GetMonthlyFactP1();
+	double current_P_min_olp = contracts[OLP_asc_order[Constants::k_min_olp]].GetMonthlyPlan();
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
+		double current_f_d_c = contracts[OLP_asc_order[k_max_olp]].GetDailyFactP1(day);
+		double current_p_d_c = contracts[OLP_asc_order[k_max_olp]].GetDailyPlan(day);
+		double current_p_d_ofs_max_olp = contracts[OLP_asc_order[k_max_olp]].GetDailyOffsetPlan(day);
+		double current_f_d_min_olp = contracts[OLP_asc_order[Constants::k_min_olp]].GetDailyFactP1(day);
+		if (isgreater(current_p_d_c, current_f_d_c)) {
+			std::initializer_list<double> ilist{ current_p_d_ofs_max_olp - current_f_d_c, current_P - current_F, current_F_min_olp - current_P_min_olp, current_f_d_min_olp };
+			current_f_d_c = current_f_d_c + min(ilist);
+
+		}
+	}
 
 }
 
