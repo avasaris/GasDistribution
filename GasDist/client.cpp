@@ -235,5 +235,25 @@ void Client::Phase2Algo2() {
 
 }
 
+void Client::SplitFactToSquares() {
+	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
+		map<string, double> c_summ{};
+		for (auto contract : contracts) {
+			map<string, double> c_one = contract.GetEachSquareFact(day);
+			for (const auto& [name, fact] : c_one) {
+				c_summ[name] += fact;
+			}
+		}
+		for (auto contract : contracts) {
+			contract.SplitFactToSquares(day, c_summ);
+		}
+	}
+
+}
+
+void Client::SaveFactToDB() {
+
+}
+
 void Client::Phase2Algo1() {
 }

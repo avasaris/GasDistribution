@@ -13,6 +13,8 @@ public:
 	double GetMonthlyPlan() const;
 	double GetDailyFact(int) const;
 	double GetDailyPlan(int) const;
+	string GetName() { return name; };
+
 private:
 	string name;
 	string number;

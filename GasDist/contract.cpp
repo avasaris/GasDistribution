@@ -104,3 +104,13 @@ double Contract::GetMonthlyFactP1() const {
 
 	return ret_val;
 }
+
+map<string, double> Contract::GetEachSquareFact(int day) {
+	map<string, double> ret_val{};
+
+	for (auto square : squares) {
+		ret_val[square.GetName()] = square.GetDailyFact(day);
+	}
+
+	return ret_val;
+}

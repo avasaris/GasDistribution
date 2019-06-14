@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "InitValues.h"
 
 using namespace std;
@@ -15,10 +16,11 @@ public:
 
 	double GetMonthlyFact() const;
 	double GetMonthlyPlan() const;
-	double GetDailyFact(int) const;
-	double GetDailyPlan(int) const;
-	double GetDailyOffsetPlan(int) const;
+	double GetDailyFact(int day) const;
+	double GetDailyPlan(int day) const;
+	double GetDailyOffsetPlan(int day) const;
 	string GetName() const { return name; };
+	map<string, double> GetEachSquareFact(int day);
 
 	void SetDailyFactP1(int, double);
 	double GetDailyFactP1(int) const;

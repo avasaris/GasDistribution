@@ -43,10 +43,13 @@ public:
 		CalculatePhase1();
 	};
 	
+	//some Proxies to private members.  We should remove it later.
 	AlgorithmPhase2 LinkToCheckIfWeNeedPhase2() { return CheckIfWeNeedPhase2(); };
 	void LinkToPhase2Algo1() { return Phase2Algo1(); };
 	void LinkToPhase2Algo2() { return Phase2Algo2(); };
 	void LinkToPhase2Algo3() { return Phase2Algo3(); };
+	void LinkToSplitFactToSquares() { return SplitFactToSquares(); };
+	void LinkToSaveFactToDB() { return SaveFactToDB(); };
 
 private:
 	string name;
@@ -64,6 +67,9 @@ private:
 	void Phase2Algo1();
 	void Phase2Algo2();
 	void Phase2Algo3();
+
+	void SplitFactToSquares();
+	void SaveFactToDB();
 
 };
 

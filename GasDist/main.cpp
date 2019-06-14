@@ -46,6 +46,10 @@ int main() {
 
 		if (if_phase2 == AlgorithmPhase2::N_3_3) client.LinkToPhase2Algo3();
 		if (if_phase2 == AlgorithmPhase2::N_3_2) client.LinkToPhase2Algo2();
+		if (if_phase2 == AlgorithmPhase2::N_3_1) client.LinkToPhase2Algo1();
+
+		client.LinkToSplitFactToSquares();
+		client.LinkToSaveFactToDB();
 
 
 	}
