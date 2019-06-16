@@ -13,7 +13,7 @@ public:
 	double GetMonthlyPlan() const;
 	double GetDailyFact(int) const;
 	double GetDailyPlan(int) const;
-	string GetName() { return name; };
+	const string& GetName() const { return name; };
 
 private:
 	string name;

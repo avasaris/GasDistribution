@@ -1,7 +1,7 @@
 #include "DataBaseLayer.h"
 
 Db::Db(const string& db_name) {
-	rc = sqlite3_open(db_name.c_str(), &this->db);
+	int rc = sqlite3_open(db_name.c_str(), &this->db);
 
 	if (rc != SQLITE_OK) {
 		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
@@ -12,14 +12,14 @@ Db::~Db() {
 	sqlite3_close(db);
 }
 
-vector<string> Db::GetSquares(const string& contract_name) {
+vector<string> Db::GetSquares(const string& contract_name) const {
 	string query = boost::str(boost::format(QUERY_ALL_SQUARES) % contract_name);
 	vector<string> query_result = SelectToVectorOfStrings(query);
 
 	return query_result;
 }
 
-vector<string> Db::GetContracts(const string& client_name) {
+vector<string> Db::GetContracts(const string& client_name) const {
 	string query = boost::str(boost::format(QUERY_ALL_CONTRACTS) % client_name);
 	vector<string> query_result = SelectToVectorOfStrings(query);
 	for (auto q = query_result.begin(); q != query_result.end(); q += 5) {
@@ -32,7 +32,7 @@ vector<string> Db::GetContracts(const string& client_name) {
 	return query_result;
 }
 
-vector<string> Db::GetClients() {
+vector<string> Db::GetClients() const {
 	vector<string> query_result = SelectToVectorOfStrings(QUERY_ALL_CLIENTS);
 
 	return query_result;
@@ -50,11 +50,11 @@ static int ReturnDataIntoVector(void* data, int argc, char** argv, char** azColN
 	return 0;
 }
 
-vector<string> Db::SelectToVectorOfStrings(const string& query) {
+const vector<string> Db::SelectToVectorOfStrings (const string& query) const {
 	vector<string> ret_vector;
 	char* zErrMsg = 0;
 
-	rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoVector, (void*)& ret_vector, &zErrMsg);
+	int rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoVector, (void*)& ret_vector, &zErrMsg);
 
 	if (rc != SQLITE_OK) {
 		fprintf(stderr, "SQL error: %s\n", zErrMsg);

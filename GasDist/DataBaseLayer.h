@@ -41,15 +41,14 @@ public:
 	Db(const string&);
 	~Db();
 
-	vector<string> GetClients();
-	vector<string> GetContracts(const string& client_name);
-	vector<string> GetSquares(const string& contract_name);
+	vector<string> GetClients() const;
+	vector<string> GetContracts(const string& client_name) const;
+	vector<string> GetSquares(const string& contract_name) const;
 
 private:
 	sqlite3* db;
-	int rc;
 
-	vector<string> SelectToVectorOfStrings(const string& query);
+	const vector<string> SelectToVectorOfStrings (const string& query) const;
 };
 
 #endif  DATABASELAYER_H

@@ -245,7 +245,7 @@ void Client::SplitFactToSquares() {
 			}
 		}
 		for (auto contract : contracts) {
-			contract.SplitFactToSquares(day, c_summ);
+			//contract.SplitFactToSquares(day, c_summ);
 		}
 	}
 

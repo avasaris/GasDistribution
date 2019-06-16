@@ -19,7 +19,7 @@ public:
 	double GetDailyFact(int day) const;
 	double GetDailyPlan(int day) const;
 	double GetDailyOffsetPlan(int day) const;
-	string GetName() const { return name; };
+	const string& GetName() const { return name; };
 	map<string, double> GetEachSquareFact(int day);
 
 	void SetDailyFactP1(int, double);
