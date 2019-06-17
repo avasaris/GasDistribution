@@ -17,6 +17,9 @@ Square::Square(const string& name, const string& number, const string& s_g, cons
 	}
 	cout << endl;
 	*/
+	//vector<double> empty_vec(Constants::DAYS_IN_MONTH + 1, 0);
+	//final_fact = { empty_vec };
+
 }
 
 double Square::GetDailyFact(int day_of_interest) const {

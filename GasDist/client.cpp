@@ -238,14 +238,14 @@ void Client::Phase2Algo2() {
 void Client::SplitFactToSquares() {
 	for (int day = 1; day <= Constants::DAYS_IN_MONTH; ++day) {
 		map<string, double> c_summ{};
-		for (auto contract : contracts) {
+		for (const auto& contract : contracts) {
 			map<string, double> c_one = contract.GetEachSquareFact(day);
-			for (const auto& [name, fact] : c_one) {
-				c_summ[name] += fact;
+			for (const auto& [sq_number, fact] : c_one) {
+				c_summ[sq_number] += fact;
 			}
 		}
 		for (auto contract : contracts) {
-			//contract.SplitFactToSquares(day, c_summ);
+			contract.SplitFactToSquares(day, c_summ);
 		}
 	}
 

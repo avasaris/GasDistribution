@@ -20,15 +20,16 @@ public:
 	double GetDailyPlan(int day) const;
 	double GetDailyOffsetPlan(int day) const;
 	const string& GetName() const { return name; };
-	map<string, double> GetEachSquareFact(int day);
+	map<string, double> GetEachSquareFact(int day) const;
 
-	void SetDailyFactP1(int, double);
-	double GetDailyFactP1(int) const;
+	void SetDailyFactP1(int day, double fact);
+	double GetDailyFactP1(int day) const;
 	double GetMonthlyFactP1() const;
 
-	void SetDailyFactP2(int, double);
-	double GetDailyFactP2(int) const;
+	void SetDailyFactP2(int day, double fact);
+	double GetDailyFactP2(int day) const;
 
+	void SplitFactToSquares(int day, map<string, double> squares_total_fact);
 private:
 	string name;
 	string contracts_group;

@@ -44,7 +44,7 @@ int Contract::GetULP() const {
 
 double Contract::GetMonthlyFact() const {
 	double ret_val{ 0 };
-	for (auto s : squares) ret_val += s.GetMonthlyFact();
+	for (const auto& s : squares) ret_val += s.GetMonthlyFact();
 
 	// self check
 	double tmp_val{ 0 };
@@ -56,7 +56,7 @@ double Contract::GetMonthlyFact() const {
 
 double Contract::GetMonthlyPlan() const {
 	double ret_val{ 0 };
-	for (auto s : squares) ret_val += s.GetMonthlyPlan();
+	for (const auto& s : squares) ret_val += s.GetMonthlyPlan();
 
 	// self check
 	double tmp_val{ 0 };
@@ -68,13 +68,13 @@ double Contract::GetMonthlyPlan() const {
 
 double Contract::GetDailyFact(int day_of_interest) const {
 	double ret_val{ 0 };
-	for (auto s : squares) ret_val += s.GetDailyFact(day_of_interest);
+	for (const auto& s : squares) ret_val += s.GetDailyFact(day_of_interest);
 	return ret_val;
 }
 
 double Contract::GetDailyPlan(int day_of_interest) const {
 	double ret_val{ 0 };
-	for (auto s : squares) ret_val += s.GetDailyPlan(day_of_interest);
+	for (const auto& s : squares) ret_val += s.GetDailyPlan(day_of_interest);
 	return ret_val;
 }
 
@@ -105,12 +105,36 @@ double Contract::GetMonthlyFactP1() const {
 	return ret_val;
 }
 
-map<string, double> Contract::GetEachSquareFact(int day) {
+map<string, double> Contract::GetEachSquareFact(int day) const {
 	map<string, double> ret_val{};
 
-	for (auto square : squares) {
-		ret_val[square.GetName()] = square.GetDailyFact(day);
+	for (const auto& square : squares) {
+		ret_val[square.GetNumber()] = square.GetDailyFact(day);
 	}
 
 	return ret_val;
+}
+
+void Contract::SplitFactToSquares(int day, map<string, double> squares_total_fact) {
+	cout << "Squares fact overall day=" << day << endl;
+	
+	double whole_fact{ 0 };
+	for (const auto& [sq_number, fact] : squares_total_fact) {
+		whole_fact += fact;
+	}
+
+	assert(whole_fact > 0.0);
+
+	for (const auto& [sq_number, fact] : squares_total_fact) {
+		for (auto& square : squares) {
+			if (square.GetNumber() == sq_number) {
+				double curr_fact = GetDailyFactP2(day);
+				double new_fact = Round1000(curr_fact * fact / whole_fact);
+				square.SetDailyFinalFact(day, new_fact);
+				cout << sq_number << ":\t" << new_fact << endl;
+			}
+		}
+	}
+
+	
 }

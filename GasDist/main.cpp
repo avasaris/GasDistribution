@@ -24,7 +24,7 @@ int main() {
 	}
 
 	cout << "Clients:";
-	for (auto client : clients_names) cout << " " << client << ";";
+	for (const auto& client : clients_names) cout << " " << client << ";";
 	cout << endl;
 
 	std::cout.precision(6);
