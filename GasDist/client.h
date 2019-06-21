@@ -8,6 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include "InitValues.h"
+#include "contract.h"
 
 enum class AlgorithmPhase1 {
 	N_2_0, N_2_1, N_2_2, N_2_3
@@ -31,7 +32,7 @@ public:
 	double GetDailyPlan(int) const;
 	double GetDailyOffsetPlan(int) const;
 
-	const string& SayMyName() const { return name; };
+	const string& GetName() const { return name; };
 
 	void LinkToCaclulateAlgorithmForPhase1() { 
 		cout << " Daily plan | Daily plan offset | Daily fact" << endl;
@@ -69,7 +70,7 @@ private:
 	void Phase2Algo3();
 
 	void SplitFactToSquares();
-	void SaveFactToDB();
+	void SaveFactToDB() const;
 
 };
 

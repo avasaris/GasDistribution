@@ -251,8 +251,10 @@ void Client::SplitFactToSquares() {
 
 }
 
-void Client::SaveFactToDB() {
-
+void Client::SaveFactToDB() const {
+	for (Contract contract : contracts) {
+		contract.SaveFactToDB(this->GetName());
+	}
 }
 
 void Client::Phase2Algo1() {

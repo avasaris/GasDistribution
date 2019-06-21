@@ -63,3 +63,24 @@ const vector<string> Db::SelectToVectorOfStrings (const string& query) const {
 
 	return ret_vector;
 }
+
+void Db::SaveFactToDB(const string& client_name, const string& contract_name, const string& square_name, const string& square_number, const vector<double>& final_fact) const {
+
+	//RemoveFinalFactFromDB(client_name, contract_name, square_name, square_number, "FinalFact");
+
+	string insert_values{ "" };
+	insert_values += "'" + client_name + "', ";
+	insert_values += "'" + contract_name + "', ";
+	insert_values += "'" + square_name + "', ";
+	insert_values += "'" + square_number + "', ";
+	insert_values += "'FinalFact'";
+
+	for (double fact : final_fact) {
+		insert_values += ", '" + boost::lexical_cast<std::string>(fact) + "'";
+	}
+
+	string query = boost::str(boost::format(INSERT_CALCULATED_FACT) % insert_values);
+
+	std::cout << endl << "===================================================" << endl << query;
+
+}

@@ -2,7 +2,11 @@
 #define DATABASELAYER_H
 
 #include <string>
+
+#include <iostream> // - temporary
+
 #include "boost/format.hpp"
+#include "boost/lexical_cast.hpp"
 #include "sqlite3.h"
 
 using namespace std;
@@ -36,6 +40,12 @@ const string QUERY_ALL_SQUARES(
 	(raw.Client=rawfact.Client AND raw.Contract=rawfact.Contract AND raw.SquareNumber=rawfact.SquareNumber AND rawfact.DataType LIKE 'Fact') \
 	WHERE raw.DataType LIKE 'Plan' AND raw.Contract LIKE '%s'");
 
+const string INSERT_CALCULATED_FACT("INSERT INTO RawData (Client, Contract, Square, SquareNumber, DataType, \
+	Day01, Day02, Day03, Day04, Day05, Day06, Day07, Day08, Day09, Day10, \
+	Day11, Day12, Day13, Day14, Day15, Day16, Day17, Day18, Day19, Day20, \
+	Day21, Day22, Day23, Day24, Day25, Day26, Day27, Day28, Day29, Day30, \
+	Day31) VALUES (%s)");
+
 class Db {
 public:
 	Db(const string&);
@@ -44,6 +54,8 @@ public:
 	vector<string> GetClients() const;
 	vector<string> GetContracts(const string& client_name) const;
 	vector<string> GetSquares(const string& contract_name) const;
+
+	void SaveFactToDB(const string& client_name, const string& contract_name, const string& square_name, const string& square_number, const vector<double>& final_fact) const;
 
 private:
 	sqlite3* db;

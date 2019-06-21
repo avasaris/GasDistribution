@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include "InitValues.h"
+#include "square.h"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ public:
 	double GetDailyFactP2(int day) const;
 
 	void SplitFactToSquares(int day, map<string, double> squares_total_fact);
+
+	void SaveFactToDB(const string& client_name) const;
 private:
 	string name;
 	string contracts_group;

@@ -138,3 +138,9 @@ void Contract::SplitFactToSquares(int day, map<string, double> squares_total_fac
 
 	
 }
+
+void Contract::SaveFactToDB(const string& client_name) const {
+	for (Square square : squares) {
+		square.SaveFactToDB(client_name, this->GetName());
+	}
+}

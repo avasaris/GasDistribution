@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "InitValues.h"
 
 
 using namespace std;
@@ -18,6 +19,10 @@ public:
 	const string& GetNumber() const { return number; };
 
 	void SetDailyFinalFact(int day, double fact) { final_fact[day] = fact; };
+
+	void SaveFactToDB(const string& client_name, const string& contract_name) const;
+
+	const vector<double>& GetFinalFact() const { return final_fact; };
 
 private:
 	string name;

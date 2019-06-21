@@ -2,9 +2,6 @@
 #define INITVALUES_H
 
 #include <string>
-#include "square.h"
-#include "contract.h"
-#include "client.h"
 #include "DataBaseLayer.h"
 
 using namespace std;

@@ -41,3 +41,8 @@ double Square::GetMonthlyPlan() const {
 	for (int i = 1; i <= days_in_month; ++i) ret_plan += GetDailyPlan(i);
 	return ret_plan;
 }
+
+void Square::SaveFactToDB(const string& client_name, const string& contract_name) const {
+	Db data_base{ Constants::DB_NAME };
+	data_base.SaveFactToDB(client_name, contract_name, this->GetName(), this->GetNumber(), this->GetFinalFact());
+}
