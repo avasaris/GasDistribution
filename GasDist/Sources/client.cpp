@@ -244,7 +244,7 @@ void Client::SplitFactToSquares() {
 				c_summ[sq_number] += fact;
 			}
 		}
-		for (auto contract : contracts) {
+		for (auto& contract : contracts) {
 			contract.SplitFactToSquares(day, c_summ);
 		}
 	}
@@ -252,7 +252,7 @@ void Client::SplitFactToSquares() {
 }
 
 void Client::SaveFactToDB() const {
-	for (Contract contract : contracts) {
+	for (const auto& contract : contracts) {
 		contract.SaveFactToDB(this->GetName());
 	}
 }

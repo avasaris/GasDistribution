@@ -33,7 +33,7 @@ private:
 	string squares_group;
 	string delivery_type;
 
-	vector<double> final_fact{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	vector<double> final_fact;
 };
 
 #endif SQUARE_H

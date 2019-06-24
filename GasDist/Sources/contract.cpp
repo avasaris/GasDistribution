@@ -131,7 +131,7 @@ void Contract::SplitFactToSquares(int day, map<string, double> squares_total_fac
 				double curr_fact = GetDailyFactP2(day);
 				double new_fact = Round1000(curr_fact * fact / whole_fact);
 				square.SetDailyFinalFact(day, new_fact);
-				cout << sq_number << ":\t" << new_fact << endl;
+				cout << this->GetName() << ":\t" << sq_number << ":\t" << new_fact << endl;
 			}
 		}
 	}
@@ -140,7 +140,7 @@ void Contract::SplitFactToSquares(int day, map<string, double> squares_total_fac
 }
 
 void Contract::SaveFactToDB(const string& client_name) const {
-	for (Square square : squares) {
+	for (const auto& square : squares) {
 		square.SaveFactToDB(client_name, this->GetName());
 	}
 }

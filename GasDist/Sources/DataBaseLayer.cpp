@@ -75,8 +75,12 @@ void Db::SaveFactToDB(const string& client_name, const string& contract_name, co
 	insert_values += "'" + square_number + "', ";
 	insert_values += "'FinalFact'";
 
-	for (double fact : final_fact) {
-		insert_values += ", '" + boost::lexical_cast<std::string>(fact) + "'";
+	for (const double &fact : final_fact) {
+//		insert_values += ", '" + boost::lexical_cast<std::string>(fact) + "'";
+		std::ostringstream strs;
+		strs << fact;
+		std::string str = strs.str();
+		insert_values += ", '" + str + "'";
 	}
 
 	string query = boost::str(boost::format(INSERT_CALCULATED_FACT) % insert_values);
