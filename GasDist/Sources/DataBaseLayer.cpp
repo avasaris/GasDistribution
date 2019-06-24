@@ -66,25 +66,29 @@ const vector<string> Db::SelectToVectorOfStrings (const string& query) const {
 
 void Db::SaveFactToDB(const string& client_name, const string& contract_name, const string& square_name, const string& square_number, const vector<double>& final_fact) const {
 
-	//RemoveFinalFactFromDB(client_name, contract_name, square_name, square_number, "FinalFact");
+	std::cout << std::endl << "===================================================" << std::endl;
+
+	RemoveFinalFactFromDB(client_name, contract_name, square_number, "FinalFact");
 
 	string insert_values{ "" };
-	insert_values += "'" + client_name + "', ";
-	insert_values += "'" + contract_name + "', ";
-	insert_values += "'" + square_name + "', ";
-	insert_values += "'" + square_number + "', ";
-	insert_values += "'FinalFact'";
 
 	for (const double &fact : final_fact) {
-//		insert_values += ", '" + boost::lexical_cast<std::string>(fact) + "'";
 		std::ostringstream strs;
 		strs << fact;
 		std::string str = strs.str();
 		insert_values += ", '" + str + "'";
 	}
 
-	string query = boost::str(boost::format(INSERT_CALCULATED_FACT) % insert_values);
+	string query = boost::str(boost::format(INSERT_FINAL_FACT) % client_name % contract_name % square_name % square_number % "FinalFact" % insert_values);
+	vector<string> query_result = SelectToVectorOfStrings(query);
 
-	std::cout << endl << "===================================================" << endl << query;
+	std::cout << std::endl << query << std::endl;
 
+}
+
+void Db::RemoveFinalFactFromDB(const string& client_name, const string& contract_name, const string& square_number, const string& data_type) const {
+	string query = boost::str(boost::format(REMOVE_FINAL_FACT) % client_name % contract_name % square_number);
+	vector<string> query_result = SelectToVectorOfStrings(query);
+
+	std::cout << std::endl << query << std::endl;
 }
