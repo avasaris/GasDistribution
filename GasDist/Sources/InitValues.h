@@ -8,8 +8,9 @@ using namespace std;
 
 namespace Constants {
 	const int DAYS_IN_MONTH{ 30 };
-//	const char* const DB_NAME{ "Dorinda.sqlite" };
-	const char* const DB_NAME{ "Energopromservice.sqlite" };
+//	const char* const DB_FOLDER{ "Databases\\" };
+//	const char* const DB_NAME{ "Databases\\Dorinda.sqlite" };
+	const char* const DB_NAME{ "Databases\\Energopromservice.sqlite" };
 	const int k_min_olp{ 0 };
 	const int k_max_ulp{ 0 };
 }

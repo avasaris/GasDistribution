@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(BOOST_ROOT)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST_ROOT);$(ProjectDir)ExternalDeps</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -127,32 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="client.cpp" />
-    <ClCompile Include="contract.cpp" />
-    <ClCompile Include="DataBaseLayer.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="sqlite3.c" />
-    <ClCompile Include="square.cpp" />
+    <ClCompile Include="Sources\client.cpp" />
+    <ClCompile Include="Sources\contract.cpp" />
+    <ClCompile Include="Sources\DataBaseLayer.cpp" />
+    <ClCompile Include="Sources\main.cpp" />
+    <ClCompile Include="ExternalDeps\sqlite3.c" />
+    <ClCompile Include="Sources\square.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="client.h" />
-    <ClInclude Include="contract.h" />
-    <ClInclude Include="DataBaseLayer.h" />
-    <ClInclude Include="InitValues.h" />
-    <ClInclude Include="sqlite3.h" />
-    <ClInclude Include="square.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dorinda.xls" />
-    <None Include="Input1.csv" />
-    <None Include="Input2.csv" />
-    <None Include="Energopromservice.xls" />
-    <None Include="Energopromservice.csv" />
-    <None Include="my_cosy_database.dblite" />
-    <None Include="Queryfor1C.sql" />
-    <None Include="Алгоритм распределения_вер 6 (20180703).docx" />
-    <None Include="Алгоритм распределения_вер 6.01 (20181129).docx" />
-    <None Include="Копия Новый принцип ПЗ и БЭ.xlsx" />
+    <ClInclude Include="Sources\client.h" />
+    <ClInclude Include="Sources\contract.h" />
+    <ClInclude Include="Sources\DataBaseLayer.h" />
+    <ClInclude Include="Sources\InitValues.h" />
+    <ClInclude Include="ExternalDeps\sqlite3.h" />
+    <ClInclude Include="Sources\square.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
