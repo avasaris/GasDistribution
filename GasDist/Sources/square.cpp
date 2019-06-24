@@ -47,3 +47,18 @@ void Square::SaveFactToDB(const string& client_name, const string& contract_name
 	Db data_base{ Constants::DB_NAME };
 	data_base.SaveFactToDB(client_name, contract_name, this->GetName(), this->GetNumber(), this->GetFinalFact());
 }
+
+void Square::SetDailyFinalFact(int day, double fact) { 
+	final_fact[day] = fact;
+};
+
+vector<double> Square::GetFinalFact() const {
+	vector<double> ret_fact{ final_fact };
+	ret_fact.erase(ret_fact.begin());
+
+	while (ret_fact.size() < 31) {
+		ret_fact.push_back(0);
+	}
+
+	return ret_fact;
+};
