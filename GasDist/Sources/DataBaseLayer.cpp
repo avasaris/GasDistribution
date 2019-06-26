@@ -1,5 +1,7 @@
 #include "DataBaseLayer.h"
 
+string ReplaceFacet(const string& str);
+
 Db::Db(const string& db_name) {
 	int rc = sqlite3_open(db_name.c_str(), &this->db);
 
@@ -38,37 +40,11 @@ vector<string> Db::GetClients() const {
 	return query_result;
 }
 
-/// ================ UTILITIES ================
-
-static int ReturnDataIntoVector(void* data, int argc, char** argv, char** azColName) {
-	vector<string>* ret_data = (vector<string>*)data;
-
-	for (int i = 0; i < argc; i++) {
-		(*ret_data).push_back(argv[i] ? argv[i] : "NULL");
-	}
-
-	return 0;
-}
-
-const vector<string> Db::SelectToVectorOfStrings (const string& query) const {
-	vector<string> ret_vector;
-	char* zErrMsg = 0;
-
-	int rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoVector, (void*)& ret_vector, &zErrMsg);
-
-	if (rc != SQLITE_OK) {
-		fprintf(stderr, "SQL error: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
-	}
-
-	return ret_vector;
-}
-
 void Db::SaveFactToDB(const string& client_name, const string& contract_name, const string& square_name, const string& square_number, const vector<double>& final_fact) const {
 
 	std::cout << std::endl << "===================================================" << std::endl;
 
-	RemoveFinalFactFromDB(client_name, contract_name, square_number, "FinalFact");
+	this->RemoveFinalFactFromDB(client_name, contract_name, square_number, "FinalFact");
 
 	string insert_values{ "" };
 
@@ -76,7 +52,7 @@ void Db::SaveFactToDB(const string& client_name, const string& contract_name, co
 		std::ostringstream strs;
 		strs << fact;
 		std::string str = strs.str();
-		insert_values += ", '" + str + "'";
+		insert_values += ", '" + ReplaceFacet(str) +"'";
 	}
 
 	string query = boost::str(boost::format(INSERT_FINAL_FACT) % client_name % contract_name % square_name % square_number % "FinalFact" % insert_values);
@@ -91,4 +67,39 @@ void Db::RemoveFinalFactFromDB(const string& client_name, const string& contract
 	vector<string> query_result = SelectToVectorOfStrings(query);
 
 	std::cout << std::endl << query << std::endl;
+}
+
+
+/// ================ UTILITIES ================
+
+static int ReturnDataIntoVector(void* data, int argc, char** argv, char** azColName) {
+	vector<string>* ret_data = (vector<string>*)data;
+
+	for (int i = 0; i < argc; i++) {
+		(*ret_data).push_back(argv[i] ? argv[i] : "NULL");
+	}
+
+	return 0;
+}
+
+const vector<string> Db::SelectToVectorOfStrings(const string& query) const {
+	vector<string> ret_vector;
+	char* zErrMsg = 0;
+
+	int rc = sqlite3_exec(db, query.c_str(), ReturnDataIntoVector, (void*)& ret_vector, &zErrMsg);
+
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+
+	return ret_vector;
+}
+
+string ReplaceFacet(const string& str) {
+	string ret_string{ str };
+
+	for (char& c : ret_string) if (c == '.') c = ',';
+	
+	return ret_string;
 }
