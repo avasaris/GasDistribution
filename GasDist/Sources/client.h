@@ -56,8 +56,8 @@ private:
 	string name;
 	vector<Contract> contracts;
 
-	vector<int> OLP_asc_order;  // k_min_olp is the first element
-	vector<int> ULP_desc_order; // k_max_ulp is the first element
+	vector<size_t> OLP_asc_order;  // k_min_olp is the first element
+	vector<size_t> ULP_desc_order; // k_max_ulp is the first element
 	void Reorder();
 
 	vector<AlgorithmPhase1> algorithm_phase1;
