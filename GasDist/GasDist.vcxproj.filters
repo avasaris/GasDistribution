@@ -15,36 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d1.cpp">
+    <ClCompile Include="ExternalDeps\sqlite3.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="d2.cpp">
+    <ClCompile Include="Sources\client.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\contract.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\DataBaseLayer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\square.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sqlite3.h">
+    <ClInclude Include="ExternalDeps\sqlite3.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Input_new1.xls">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="Input1.csv">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="Input2.csv">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="my_cosy_database.dblite">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="Алгоритм распределения_вер 6 (20180703).docx">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="Копия Новый принцип ПЗ и БЭ.xlsx">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
+    <ClInclude Include="Sources\client.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\contract.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\DataBaseLayer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\InitValues.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\square.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -69,13 +69,30 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(BOOST_ROOT);$(ProjectDir)ExternalDeps</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,6 +104,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(BOOST_ROOT);$(ProjectDir)ExternalDeps</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,19 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="d1.cpp" />
-    <ClCompile Include="d2.cpp" />
+    <ClCompile Include="Sources\client.cpp" />
+    <ClCompile Include="Sources\contract.cpp" />
+    <ClCompile Include="Sources\DataBaseLayer.cpp" />
+    <ClCompile Include="Sources\main.cpp" />
+    <ClCompile Include="ExternalDeps\sqlite3.c" />
+    <ClCompile Include="Sources\square.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sqlite3.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Input1.csv" />
-    <None Include="Input2.csv" />
-    <None Include="Input_new1.xls" />
-    <None Include="my_cosy_database.dblite" />
-    <None Include="Алгоритм распределения_вер 6 (20180703).docx" />
-    <None Include="Копия Новый принцип ПЗ и БЭ.xlsx" />
+    <ClInclude Include="Sources\client.h" />
+    <ClInclude Include="Sources\contract.h" />
+    <ClInclude Include="Sources\DataBaseLayer.h" />
+    <ClInclude Include="Sources\InitValues.h" />
+    <ClInclude Include="ExternalDeps\sqlite3.h" />
+    <ClInclude Include="Sources\square.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
