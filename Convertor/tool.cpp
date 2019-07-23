@@ -9,19 +9,21 @@
 using namespace std;
 
 class CSVfile {
-	CSVfile(string fn) : fileName(fn) { initFieldsStructure() };
-	const vector<string> getHeader() const;
-	const vector<vector<string>> getContent() const;
 private:
 	string fileName;
 	map<string, int> fieldsStructure;
 
+public:
+	CSVfile(string fn) : fileName(fn) { initFieldsStructure() };
+	const vector<string> getHeader() const;
+	const vector<vector<string>> getContent() const;
+
+private:
 	void initFieldsStructure();
 };
 
 void CSVfile::initFieldsStructure() {
-	ifstream inpStream;
-	string row0;
+
 	getline(inpStream, row0);
 	vector<string> values = split_at_semicolon(row0);
 }
@@ -51,7 +53,7 @@ int main() {
 
 
 	// вычислим разделитель целой и дробной части в рабочей локали
-	std::locale lcl;
+/*	std::locale lcl;
 	const auto& facet = std::use_facet<std::numpunct<char>>(lcl);
 	char decimal_point = facet.decimal_point();
 
@@ -90,5 +92,7 @@ int main() {
 	}
 	else {
 		cout << "Can't open input data file" << endl;
-	}
+	}*/
+
+	return 0;
 }
