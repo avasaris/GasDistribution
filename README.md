@@ -1,2 +1,2 @@
 # GasDistribution
-The algorithm for the calculation of facts of gas delivery to avoid overloads.
+The algorithm for changing the volume of the gas delivered to the client to avoid overlimits on the contract.
