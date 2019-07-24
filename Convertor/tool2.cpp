@@ -5,8 +5,8 @@
 #include <map>
 #include <vector>
 
-namespace Const {
-	const char* const csv_file{"Input.csv"};
+namespace Constants {
+	const char* const csv_file{"Dorinda.csv"};
 
 };
 
@@ -32,23 +32,25 @@ public:
 class CSVfile {
 private:
 	CSVConnect& csv;
-	map <string, int> HeaderInfo;
+	map <string, int> headerInfo;
 
 	void initHeaderInfo();
 
 public:
 	CSVfile(CSVConnect& csv) : csv(csv) {
 		initHeaderInfo();
-
 	}
 	
+	void printHeaderInfo();
 
 };
 
 int main() {
-	CSVfile csv(CSVConnect::instance(Const::csv_file));
+	CSVConnect& csvConnector = CSVConnect::instance(Constants::csv_file);
 
-	
+	CSVfile csv(csvConnector);
+
+	//csv.printHeaderInfo();
 
 
 
@@ -58,11 +60,17 @@ int main() {
 void CSVfile::initHeaderInfo()
 {
 	string row0;
+	ifstream tmpStream = csv.getFileStream();
 	getline(csv.getFileStream(), row0);
 	vector<string> tmpV = split_at_semicolon(row0);
 	int i = 0;
-	for (auto s : tmpV) HeaderInfo[s] = i++;
+	for (auto s : tmpV) headerInfo[s] = i++;
 
+}
+
+void CSVfile::printHeaderInfo()
+{
+	for (auto hi : headerInfo) cout << hi.first << "|" << hi.second << endl;
 }
 
 
